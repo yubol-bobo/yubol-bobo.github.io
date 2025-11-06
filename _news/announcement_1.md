@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-I am excited to begin my Ph.D. studies @ Carnegie Mellon University.
+🎓 I am excited to begin my Ph.D. studies @ Carnegie Mellon University.

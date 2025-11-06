@@ -6,7 +6,7 @@ layout: default
     <h1 class="post-title">
       {% if site.title == 'blank' %}
         <span class="font-weight-bold">{{ site.first_name }}</span> {{ site.middle_name }}
-        {{ site.last_name }}
+        <span class="font-weight-bold">{{ site.last_name }}</span>
       {% else %}
         {{ site.title }}
       {% endif %}
@@ -42,6 +42,8 @@ layout: default
               var options = {
                 strings: [
                   "🎓 PhD Student @ CMU 🎓",
+                  "🎓 MS in Information Systems @ CMU 🎓",
+                  "🎓 BS in Applied mathematics @ UCSD 🎓",
                   "💻 AI Researcher 💻",
                   "📚 Learning Every Day 📚"
                 ],
@@ -72,6 +74,31 @@ layout: default
         <a href="{{ '/news/' | relative_url }}" style="color: inherit">🎉 News</a>
       </h2>
       {% include news.liquid limit=true %}
+    {% endif %}
+
+    <!-- Separator between News and Awards -->
+    {% if page.announcements and page.announcements.enabled and page.awards and page.awards.enabled %}
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--global-divider-color);">
+    {% endif %}
+
+    <!-- Awards -->
+    {% if page.awards and page.awards.enabled %}
+      <h2>
+        <a href="{{ '/awards/' | relative_url }}" style="color: inherit">🏆 Awards</a>
+      </h2>
+      <div class="awards">
+        <ul>
+          <li><strong>2025</strong> - TCS Presidential Fellowship, Carnegie Mellon University</li>
+          <li><strong>2024</strong> - <a href="https://www.cs.cmu.edu/cmlh/2024-generative-ai-fellows">CMLH Fellowship in Generative AI in Healthcare</a>, Carnegie Mellon University</li>
+          <li><strong>2023</strong> - <a href="https://www.cs.cmu.edu/cmlh/digital-health-archive/cmlh-digital-health-fellows-2023">CMLH Fellowship in Digital Health Innovation</a>, Carnegie Mellon University</li>
+          <!-- Add more awards here -->
+        </ul>
+      </div>
+    {% endif %}
+
+    <!-- Separator between Awards and Selected Publications -->
+    {% if page.awards and page.awards.enabled and page.selected_papers %}
+      <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--global-divider-color);">
     {% endif %}
 
     <!-- Latest posts -->

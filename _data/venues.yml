@@ -23,3 +23,7 @@
 "arXiv":
   url: https://arxiv.org/
   color: "#006400"
+
+"Agents4Science":
+  url: https://agents4science.stanford.edu/
+  color: "#FF8C00"
