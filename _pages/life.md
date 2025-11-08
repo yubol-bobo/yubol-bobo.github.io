@@ -317,13 +317,13 @@ legend.addTo(map);
     <div class="day-box completed" title="Day 5 - Completed">
       <div class="day-number">5</div>
     </div>
-    <div class="day-box today" title="Day 6 - Today">
+    <div class="day-box today" title="Day 6 - Completed">
       <div class="day-number">6</div>
     </div>
-    <div class="day-box" title="Day 7">
+    <div class="day-box" title="Day 7 - Completed">
       <div class="day-number">7</div>
     </div>
-    <div class="day-box" title="Day 8">
+    <div class="day-box" title="Day 8 - Completed">
       <div class="day-number">8</div>
     </div>
     <div class="day-box" title="Day 9">
