@@ -2,6 +2,10 @@
  * Content
  ******************************************************************************/
 
+html {
+  font-size: 18px; // Increase base font size from default 16px to 18px (12.5% larger)
+}
+
 body {
   padding-bottom: 70px;
   color: var(--global-text-color);

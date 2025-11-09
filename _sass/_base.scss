@@ -310,6 +310,9 @@ ul.task-list input[type="checkbox"] {
     margin: 0 0.1rem;
     transition: all 0.3s ease;
     background-color: transparent;
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    letter-spacing: 0.3px;
 
     &:hover {
       color: var(--global-hover-color);
@@ -323,12 +326,14 @@ ul.task-list input[type="checkbox"] {
   .navbar-nav .nav-item.active > .nav-link {
     background-color: var(--global-theme-color);
     color: white;
-    font-weight: bolder;
+    font-weight: 700;
     border: 1px solid var(--global-theme-color);
     border-radius: 6px;
     padding: 0.75rem 0.65rem;
     margin: 0 0.1rem;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+    font-family: 'Playfair Display', serif;
+    letter-spacing: 0.3px;
 
     &:hover {
       background-color: var(--global-hover-color);
