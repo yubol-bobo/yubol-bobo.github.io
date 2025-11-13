@@ -528,11 +528,192 @@ nav_order: 2
 <h2>Publications</h2>
 
 <!-- Bibsearch Feature -->
-
-{% include bib_search.liquid %}
+<div style="display: flex; gap: 1rem; align-items: center; margin-bottom: 1.5rem; flex-wrap: wrap;">
+  <div style="flex: 1; min-width: 200px;">
+    {% include bib_search.liquid %}
+  </div>
+  <div style="min-width: 150px;">
+    <label for="bibsort" style="margin-right: 0.5rem; font-size: 0.9rem;">Sort by:</label>
+    <select id="bibsort" class="bibsort-dropdown" style="padding: 0.4rem 0.8rem; border: 1px solid var(--global-divider-color); border-radius: 4px; background-color: var(--global-bg-color); color: var(--global-text-color); cursor: pointer; font-size: 0.9rem;">
+      <option value="time-desc">Time (Newest)</option>
+      <option value="time-asc">Time (Oldest)</option>
+      <option value="name-asc">Name (A-Z)</option>
+      <option value="name-desc">Name (Z-A)</option>
+    </select>
+  </div>
+</div>
 
 <div class="publications">
 
 {% bibliography %}
 
 </div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const bibsortDropdown = document.getElementById('bibsort');
+
+  // Helper function to extract date from bibliography item
+  const extractDate = (item) => {
+    const monthMap = {
+      'January': 0, 'Jan': 0, 'February': 1, 'Feb': 1, 'March': 2, 'Mar': 2,
+      'April': 3, 'Apr': 3, 'May': 4, 'June': 5, 'Jun': 5,
+      'July': 6, 'Jul': 6, 'August': 7, 'Aug': 7, 'September': 8, 'Sep': 8,
+      'October': 9, 'Oct': 9, 'November': 10, 'Nov': 10, 'December': 11, 'Dec': 11
+    };
+
+    // Try to find date in .periodical div (jekyll-scholar format: "Sep 2025")
+    const periodicalDiv = item.querySelector('.periodical');
+    if (periodicalDiv) {
+      const periodicalText = periodicalDiv.textContent.trim();
+      // Match patterns like "Sep 2025", "September 2025", etc.
+      const dateMatch = periodicalText.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec|January|February|March|April|May|June|July|August|September|October|November|December)\s+(\d{4})\b/i);
+      if (dateMatch) {
+        const monthName = dateMatch[1];
+        const month = monthMap[monthName] !== undefined ? monthMap[monthName] : 0;
+        const year = parseInt(dateMatch[2]);
+        return new Date(year, month, 1);
+      }
+    }
+
+    // Fallback: Try to find date in abbr element
+    const abbrElement = item.querySelector('abbr[data-original-title]');
+    if (abbrElement) {
+      const dateText = abbrElement.getAttribute('data-original-title');
+      const dateMatch = dateText.match(/(\w+)\s+(\d{4})/);
+      if (dateMatch) {
+        const month = monthMap[dateMatch[1]] || 0;
+        const year = parseInt(dateMatch[2]);
+        return new Date(year, month, 1);
+      }
+    }
+
+    // Fallback: Try to extract year only from text content
+    const text = item.textContent;
+    const yearMatch = text.match(/\b(19|20)\d{2}\b/);
+    if (yearMatch) {
+      return new Date(parseInt(yearMatch[0]), 0, 1);
+    }
+
+    return new Date(0); // Default to epoch if no date found
+  };
+
+  if (bibsortDropdown) {
+    bibsortDropdown.addEventListener('change', function() {
+      const sortBy = this.value;
+      const bibliography = document.querySelector('.publications');
+
+      if (!bibliography) return;
+
+      // Get all h2.bibliography elements (year headings)
+      const yearSections = Array.from(bibliography.querySelectorAll('h2.bibliography'));
+
+      // Collect year groups (h2 + all following elements until next h2)
+      const yearGroups = yearSections.map(yearH2 => {
+        const group = {
+          year: parseInt(yearH2.textContent.trim()),
+          elements: [yearH2]
+        };
+
+        let nextElement = yearH2.nextElementSibling;
+        while (nextElement && nextElement.tagName !== 'H2') {
+          group.elements.push(nextElement);
+          nextElement = nextElement.nextElementSibling;
+        }
+
+        return group;
+      });
+
+      if (sortBy.startsWith('time')) {
+        // Sort by full date (year, month, day)
+        yearGroups.sort((a, b) => {
+          if (sortBy === 'time-desc') {
+            return b.year - a.year; // Newest first (default)
+          } else {
+            return a.year - b.year; // Oldest first
+          }
+        });
+
+        // Reorder the DOM elements
+        yearGroups.forEach(group => {
+          group.elements.forEach(elem => bibliography.appendChild(elem));
+        });
+
+        // Sort papers by full date within each year
+        yearGroups.forEach(group => {
+          group.elements.forEach(elem => {
+            if (elem.tagName === 'OL') {
+              const listItems = Array.from(elem.querySelectorAll(':scope > li'));
+
+              // Store original index if not already stored
+              listItems.forEach((item, index) => {
+                if (!item.hasAttribute('data-original-index')) {
+                  item.setAttribute('data-original-index', index.toString());
+                }
+              });
+
+              // Sort by full date
+              listItems.sort((a, b) => {
+                const dateA = extractDate(a);
+                const dateB = extractDate(b);
+
+                if (sortBy === 'time-desc') {
+                  return dateB - dateA; // Newest first
+                } else {
+                  return dateA - dateB; // Oldest first
+                }
+              });
+
+              listItems.forEach(item => elem.appendChild(item));
+            }
+          });
+        });
+      } else {
+        // First, restore chronological year order (newest first)
+        yearGroups.sort((a, b) => b.year - a.year);
+        yearGroups.forEach(group => {
+          group.elements.forEach(elem => bibliography.appendChild(elem));
+        });
+
+        // Then sort by name (alphabetically within each year)
+        yearGroups.forEach(group => {
+          group.elements.forEach(elem => {
+            if (elem.tagName === 'OL') {
+              const listItems = Array.from(elem.querySelectorAll(':scope > li'));
+
+              // Store original index if not already stored
+              listItems.forEach((item, index) => {
+                if (!item.hasAttribute('data-original-index')) {
+                  item.setAttribute('data-original-index', index.toString());
+                }
+              });
+
+              listItems.sort((a, b) => {
+                // Extract title from the list item
+                const titleA = a.querySelector('.title')?.textContent.trim().toLowerCase() || '';
+                const titleB = b.querySelector('.title')?.textContent.trim().toLowerCase() || '';
+
+                if (sortBy === 'name-asc') {
+                  return titleA.localeCompare(titleB);
+                } else {
+                  return titleB.localeCompare(titleA);
+                }
+              });
+
+              // Reorder list items
+              listItems.forEach(item => elem.appendChild(item));
+            }
+          });
+        });
+      }
+    });
+
+    // Trigger default sort on page load (Time - Newest)
+    if (bibsortDropdown) {
+      // Trigger the change event to apply default sorting
+      const event = new Event('change');
+      bibsortDropdown.dispatchEvent(event);
+    }
+  }
+});
+</script>
