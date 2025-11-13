@@ -34,6 +34,11 @@ nav_order: 2
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js?v=2"></script>
 <script>
   document.addEventListener('DOMContentLoaded', function() {
+    // Helper function to get theme-aware color
+    const getThemeColor = (cssVar, fallback) => {
+      return getComputedStyle(document.documentElement).getPropertyValue(cssVar).trim() || fallback;
+    };
+    
     // Conference/Journal review data by year
     const reviewData = {
       'AMIA': {
@@ -122,6 +127,32 @@ nav_order: 2
       }
     };
 
+    // Custom plugin to draw values on top of bars
+    const valueOnTopPlugin = {
+      id: 'valueOnTop',
+      afterDatasetsDraw: function(chart) {
+        const ctx = chart.ctx;
+        const textColor = getThemeColor('--global-text-color', '#000');
+        chart.data.datasets.forEach(function(dataset, i) {
+          const meta = chart.getDatasetMeta(i);
+          if (!meta.hidden) {
+            meta.data.forEach(function(element, index) {
+              // Draw the text
+              ctx.fillStyle = textColor;
+              ctx.font = 'bold 12px Arial';
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'bottom';
+              
+              const dataString = dataset.data[index].toString();
+              const padding = 5;
+              const position = element.tooltipPosition();
+              ctx.fillText(dataString, position.x, position.y - padding);
+            });
+          }
+        });
+      }
+    };
+
     const ensureDetailChart = () => {
       if (!detailCtx) {
         return null;
@@ -130,6 +161,7 @@ nav_order: 2
       if (!detailChart) {
         detailChart = new Chart(detailCtx, {
           type: 'bar',
+          plugins: [valueOnTopPlugin],
           data: {
             labels: [],
             datasets: [{
@@ -144,6 +176,11 @@ nav_order: 2
             responsive: true,
             maintainAspectRatio: true,
             parsing: false,
+            layout: {
+              padding: {
+                top: 30
+              }
+            },
             plugins: {
               legend: {
                 display: false
@@ -164,7 +201,11 @@ nav_order: 2
                 suggestedMax: 5,
                 ticks: {
                   stepSize: 1,
-                  precision: 0
+                  precision: 0,
+                  color: getThemeColor('--global-text-color', '#000')
+                },
+                grid: {
+                  color: getThemeColor('--global-divider-color', 'rgba(0,0,0,0.1)')
                 }
               },
               x: {
@@ -174,7 +215,8 @@ nav_order: 2
                   display: false
                 },
                 ticks: {
-                  autoSkip: false
+                  autoSkip: false,
+                  color: getThemeColor('--global-text-color', '#000')
                 }
               }
             },
@@ -204,6 +246,14 @@ nav_order: 2
       chart.data.datasets[0].backgroundColor = backgroundColors;
       chart.data.datasets[0].borderColor = borderColors;
       chart.options.scales.y.suggestedMax = Math.max(suggestedMax, 1);
+      
+      // Update theme colors
+      const textColor = getThemeColor('--global-text-color', '#000');
+      const gridColor = getThemeColor('--global-divider-color', 'rgba(0,0,0,0.1)');
+      chart.options.scales.y.ticks.color = textColor;
+      chart.options.scales.y.grid.color = gridColor;
+      chart.options.scales.x.ticks.color = textColor;
+      
       chart.update();
     };
 
@@ -301,12 +351,16 @@ nav_order: 2
             legend: {
               display: false
             },
+            datalabels: {
+              display: false
+            },
             title: {
               display: true,
               text: 'Reviews by Conference/Journal',
               font: {
                 size: 16
-              }
+              },
+              color: getThemeColor('--global-text-color', '#000')
             },
             tooltip: {
               enabled: true,
@@ -321,7 +375,19 @@ nav_order: 2
             y: {
               beginAtZero: true,
               ticks: {
-                stepSize: 1
+                stepSize: 1,
+                color: getThemeColor('--global-text-color', '#000')
+              },
+              grid: {
+                color: getThemeColor('--global-divider-color', 'rgba(0,0,0,0.1)')
+              }
+            },
+            x: {
+              ticks: {
+                color: getThemeColor('--global-text-color', '#000')
+              },
+              grid: {
+                color: getThemeColor('--global-divider-color', 'rgba(0,0,0,0.1)')
               }
             }
           }
