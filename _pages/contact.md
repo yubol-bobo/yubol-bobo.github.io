@@ -2,7 +2,7 @@
 layout: page
 title: Contact
 permalink: /contact/
-description: Get in touch with me
+description:  
 nav: true
 nav_order: 8
 ---
@@ -24,7 +24,7 @@ nav_order: 8
         <i class="fas fa-envelope" style="font-size: 3rem; color: var(--global-theme-color);"></i>
         <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;">Send a Message</h3>
         <p style="color: var(--global-text-color-light); font-size: 0.9rem;">
-          Have a question or want to collaborate? Drop me a message and I'll get back to you soon.
+          Questions about research or PhD programs at CMU? Just drop me a message!
         </p>
       </div>
       <div style="text-align: center;">
@@ -40,7 +40,7 @@ nav_order: 8
         <i class="fas fa-calendar-alt" style="font-size: 3rem; color: var(--global-theme-color);"></i>
         <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;">Schedule a Meeting</h3>
         <p style="color: var(--global-text-color-light); font-size: 0.9rem;">
-          Book a time slot that works for both of us. Perfect for consultations, discussions, or collaborations.
+          Let's book a 15-30 mins meeting. The time isn’t guaranteed, but I’ll follow up with you very soon.
         </p>
       </div>
       <div style="text-align: center;">
