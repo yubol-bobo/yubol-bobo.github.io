@@ -10,7 +10,7 @@ nav_order: 6
 ## Current Semester (Fall 2025)
 
 - **95-891** Introduction to AI
-- **95-865** Unstructured Data Analytics
+- **95-865** Unstructured Data Analytics [[Course Website](https://www.andrew.cmu.edu/user/georgech/95-865/)]
 - **95-888** Data Focused Python
 
 ---
