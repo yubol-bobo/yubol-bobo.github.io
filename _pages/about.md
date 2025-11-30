@@ -2,7 +2,7 @@
 layout: about
 title: About
 permalink: /
-subtitle: PhD Student @ CMU | ENFJ-T
+subtitle: PhD Candidate @ CMU | ENFJ-T
 
 profile:
   align: right
