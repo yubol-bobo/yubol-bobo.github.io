@@ -26,12 +26,13 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a PhD student in Information Systems at Carnegie Mellon University, co-advised by [Rema Padman](https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema/) and [Ramayya Krishnan](https://www.heinz.cmu.edu/faculty-research/profiles/krishnan-ramayya), and affiliated with CMU-NIST AI Measurement Science & Engineering Cooperative Research Center ([AIMSEC](https://www.cmu.edu/aimsec/)). My research advances cutting-edge AI systems and their deployment in interdisciplinary fields, with a particular focus on multi-turn LLM interactions, agentic AI systems, and explainability of LLMs and deep learning models in healthcare.
+I am a PhD student in Information Systems at Carnegie Mellon University, co-advised by [Rema Padman](https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema/) and [Ramayya Krishnan](https://www.heinz.cmu.edu/faculty-research/profiles/krishnan-ramayya), and affiliated with CMU-NIST AI Measurement Science & Engineering Cooperative Research Center ([AIMSEC](https://www.cmu.edu/aimsec/)). 
 
-My work centers on developing aligned AI and LLM systems that enable reliable, personalized treatment and clinical decision-making. By ensuring these models provide clinicians with dependable and transparent recommendations, I aim to transform healthcare decisions and reshape interactions between doctors and patients.
+My research has two main directions：
+- I study evaluation and robustness of large language model (LLM) systems, with a focus on multi-turn interactions and improving the reliability and efficiency of LLM-based agent systems.
 
-Throughout my research journey, I have tackled complex healthcare challenges, including developing agentic QA systems for organ transplant patients, LLM alignment and bias evaluation/mitigation, predictive analysis for chronic kidney disease, and explainable AI for chronic disease management. My expertise spans Machine Learning, Deep Learning, NLP/LLMs, and Generative Recommendation Systems, refined through collaborations with leading faculty/researchers at Carnegie Mellon University and UC San Diego.
+- I develop methods for deploying AI systems in clinical practice, including disease progression prediction, explainable clinical risk modeling, and agentic QA systems for organ transplant patients.
 
-I am constantly exploring opportunities to push the boundaries of AI research, developing systems that transform human-AI collaboration with a priority on safety and reliability for seamless adoption in high-stakes domain applications.
+Across both areas, my goal is to build aligned, trustworthy AI systems that support high-stakes decision-making and enable safer, more effective human–AI collaboration.
 
 ---
