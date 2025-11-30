@@ -26,7 +26,7 @@ latest_posts:
   limit: 3 # leave blank to include all the blog posts
 ---
 
-I am a PhD student in Information Systems at Carnegie Mellon University, co-advised by [Rema Padman](https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema/) and [Ramayya Krishnan](https://www.heinz.cmu.edu/faculty-research/profiles/krishnan-ramayya), and affiliated with CMU-NIST AI Measurement Science & Engineering Cooperative Research Center ([AIMSEC](https://www.cmu.edu/aimsec/)). 
+I am a Ph.D. candidate in Information Systems at Carnegie Mellon University, co-advised by [Rema Padman](https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema/) and [Ramayya Krishnan](https://www.heinz.cmu.edu/faculty-research/profiles/krishnan-ramayya), and affiliated with CMU-NIST AI Measurement Science & Engineering Cooperative Research Center ([AIMSEC](https://www.cmu.edu/aimsec/)). 
 
 My research has two main directions：
 - I study evaluation and robustness of large language model (LLM) systems, with a focus on multi-turn interactions and improving the reliability and efficiency of LLM-based agent systems.
