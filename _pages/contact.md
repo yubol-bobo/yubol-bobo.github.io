@@ -11,7 +11,7 @@ nav_order: 8
   <!-- Contact Options Header -->
   <div class="contact-header" style="margin-bottom: 3rem; text-align: center;">
     <p style="font-size: 1.1rem; color: var(--global-text-color-light);">
-      I'd love to hear from you! Choose the best way to connect:
+    
     </p>
   </div>
 
@@ -24,7 +24,7 @@ nav_order: 8
         <i class="fas fa-envelope" style="font-size: 3rem; color: var(--global-theme-color);"></i>
         <h3 style="margin-top: 1rem; margin-bottom: 0.5rem;">Send a Message</h3>
         <p style="color: var(--global-text-color-light); font-size: 0.9rem;">
-          Questions about research or PhD programs at CMU? Just drop me a message!
+          Questions about my research or grad life at CMU? Just drop me a message!
         </p>
       </div>
       <div style="text-align: center;">
