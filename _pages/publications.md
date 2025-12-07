@@ -80,6 +80,10 @@ nav_order: 2
           colors.background.push('rgba(153, 102, 255, 0.7)');
           colors.border.push('rgba(153, 102, 255, 1)');
           colors.hover.push('rgba(153, 102, 255, 0.9)');
+        } else if (venue === 'IEEE') {
+          colors.background.push('rgba(102, 51, 153, 0.7)');
+          colors.border.push('rgba(102, 51, 153, 1)');
+          colors.hover.push('rgba(102, 51, 153, 0.9)');
         } else if (venue === 'NeurIPS') {
           // Default color for NeurIPS in light theme
           colors.background.push('rgba(255, 159, 64, 0.7)');
@@ -110,6 +114,9 @@ nav_order: 2
       },
       'NeurIPS':{
         '2025': 3
+      },
+      'IEEE': {
+        '2025': 1
       }
     };
 
