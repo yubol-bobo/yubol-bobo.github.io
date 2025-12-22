@@ -1012,6 +1012,94 @@ html.transition *:after {
       }
     }
   }
+
+  // Newspaper-style typography for blog posts
+  .post-content {
+    font-family: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+    font-size: 1.35rem;
+    line-height: 1.75;
+    text-align: justify;
+    hyphens: auto;
+
+    h2 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.95rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      border-bottom: 1px solid var(--global-divider-color);
+      padding-bottom: 0.5rem;
+    }
+
+    h3 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.6rem;
+      margin-top: 2rem;
+      margin-bottom: 0.75rem;
+    }
+
+    h4 {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 600;
+      font-size: 1.4rem;
+      font-style: italic;
+      margin-top: 1.5rem;
+    }
+
+    p {
+      margin-bottom: 1.25rem;
+    }
+
+    p:first-of-type::first-letter {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 3.7rem;
+      font-weight: 700;
+      float: left;
+      line-height: 1;
+      margin-right: 0.15rem;
+      margin-top: 0.1rem;
+      color: var(--global-theme-color);
+    }
+
+    blockquote {
+      font-style: italic;
+      font-size: 1.3rem;
+      border-left: 3px solid var(--global-theme-color);
+      padding-left: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    strong {
+      font-weight: 600;
+      color: #c62828;
+    }
+
+    ul, ol {
+      margin-bottom: 1.25rem;
+    }
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+
+  .post-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  .post-description {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    font-style: italic;
+    font-size: 1.35rem;
+  }
+}
+
+// Dark mode styles for post content
+html[data-theme='dark'] .post .post-content strong {
+  color: #ffd600;
 }
 
 progress {

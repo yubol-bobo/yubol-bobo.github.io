@@ -6,6 +6,7 @@ nav_title: Research
 description:  
 nav: true
 nav_order: 2
+cv_pdf: Resume_Yubo_2026.pdf
 ---
 
 <!-- _pages/publications.md -->

@@ -10,7 +10,23 @@ layout: default
 
 <div class="post">
   <header class="post-header">
-    <h1 class="post-title">{{ page.title }}</h1>
+    <h1 class="post-title">
+      {{ page.title }}
+      {% if page.cv_pdf %}
+        <a
+          {% if page.cv_pdf contains '://' %}
+            href="{{ page.cv_pdf }}"
+          {% else %}
+            href="{{ page.cv_pdf | prepend: 'assets/pdf/' | relative_url }}"
+          {% endif %}
+          target="_blank"
+          rel="noopener noreferrer"
+          class="float-right"
+        >
+          <span class="badge badge-primary" style="font-size: 0.6em; vertical-align: middle;"><i class="fa-solid fa-download"></i> Resume</span>
+        </a>
+      {% endif %}
+    </h1>
     <p class="post-description">{{ page.description }}</p>
   </header>
 

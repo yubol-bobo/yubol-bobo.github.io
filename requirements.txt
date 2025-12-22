@@ -1,1 +1,3 @@
 nbconvert
+
+# to run the webpage locally: bundle exec jekyll serve 
