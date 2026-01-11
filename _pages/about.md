@@ -29,10 +29,14 @@ latest_posts:
 I am a Ph.D. candidate in Information Systems at Carnegie Mellon University, co-advised by [Rema Padman](https://www.heinz.cmu.edu/faculty-research/profiles/padman-rema/) and [Ramayya Krishnan](https://www.heinz.cmu.edu/faculty-research/profiles/krishnan-ramayya), and affiliated with CMU-NIST AI Measurement Science & Engineering Cooperative Research Center ([AIMSEC](https://www.cmu.edu/aimsec/)). 
 
 My research has two main directions：
-- I study large language model (LLM) systems robustness & evaluation, with a focus on multi-turn interactions and improving the reliability and efficiency of LLM-based agent systems.
+- **LLM Robustness & Evaluation**: I study the reliability of large language models, with emphasis on multi-turn interactions and developing rigorous evaluation frameworks for LLM-based systems.
 
-- I develop methods for deploying AI systems in clinical practice, including disease progression prediction, explainable clinical risk modeling, and agentic QA systems for organ transplant patients.
 
-Across both areas, my goal is to build aligned, trustworthy AI systems that support high-stakes decision-making and enable safer, more effective human–AI collaboration.
+- **Agentic AI Systems**: I work on long-horizon reasoning and planning, tool use and function calling, and multi-agent coordination—core capabilities that enable AI agents to tackle complex, multi-step tasks autonomously.
+
+- **Clinical AI Deployment**: I develop methods for deploying these systems in healthcare, including disease progression modeling, explainable clinical risk prediction, and agentic QA systems for organ transplant patients.
+
+
+At the heart of my work is a commitment to human–AI collaboration that actually works—systems that clinicians can rely on, that patients can benefit from, and that fail gracefully when they're uncertain. I'm always excited to connect with others who share this vision. Feel free to reach out!
 
 ---
