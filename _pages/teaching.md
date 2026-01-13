@@ -41,7 +41,7 @@ nav_order: 6
   <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
       <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        95-xxx
+        xx-xxx
       </div>
     </div>
     <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">coming soon</h3>
