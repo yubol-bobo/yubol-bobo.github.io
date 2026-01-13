@@ -123,4 +123,5 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
         with:
-          timeout: 1200000
+          timeout: 1800000
+          error_count: 10
