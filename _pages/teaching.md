@@ -7,7 +7,7 @@ nav: true
 nav_order: 6
 ---
 
-## Current Semester (Fall 2025)
+## Current Semester (Spring 2026)
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2rem;">
 
@@ -20,7 +20,7 @@ nav_order: 6
     </div>
     <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Introduction to AI</h3>
     <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
-      Explore the fundamentals of artificial intelligence and machine learning.
+      This course provides a comprehensive introduction to core AI concepts and techniques—spanning machine learning, computer vision, natural language processing, robotics, and generative AI—while examining real-world applications, current limitations, and the human, ethical, and policy implications of building intelligent systems.
     </p>
   </div>
 
@@ -28,26 +28,23 @@ nav_order: 6
   <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
       <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        95-865
+        95-864
       </div>
     </div>
-    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Unstructured Data Analytics</h3>
-    <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin-bottom: 1rem;">
-      Learn techniques for analyzing text, images, and other unstructured data.
+    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">AI Model Development</h3>
+    <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
+      A rigorous, hands-on course where you build, fine-tune, evaluate, and deploy real-world LLM systems—covering prompt engineering, RAG, efficient adaptation (LoRA/QLoRA), agentic workflows, and production optimization end to end.
     </p>
-    <a href="https://www.andrew.cmu.edu/user/georgech/95-865/" target="_blank" rel="noopener" class="btn btn-sm btn-primary">
-      <i class="fas fa-external-link-alt"></i> Course Website
-    </a>
   </div>
 
   <!-- Course 3: Data Focused Python -->
   <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
       <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        95-888
+        95-xxx
       </div>
     </div>
-    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Data Focused Python</h3>
+    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">coming soon</h3>
     <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
       Master Python programming for data analysis and scientific computing.
     </p>
@@ -66,8 +63,9 @@ nav_order: 6
 
 ## Past Semesters
 
-- **95-891** Introduction to AI (Spring 25, Fall 24)
-- **95-865** Unstructured Data Analytics (Spring 25, Fall 24)
+- **95-891** Introduction to AI (Fall 25, Spring 25, Fall 24)
+- **95-865** Unstructured Data Analytics (Fall 25, Spring 25, Fall 24)
+- **95-888** Data Focused Python (Fall 25)
 - **11-711** Advanced NLP (Fall 24)
 - **10-681** Computational Foundation for Machine Learning (Summer 24)
 - **10-680** Mathematical Foundation for Machine Learning (Summer 24)
