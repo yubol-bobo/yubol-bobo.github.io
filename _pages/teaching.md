@@ -7,7 +7,23 @@ nav: true
 nav_order: 6
 ---
 
-## Current Semester (Spring 2026)
+## Guest Lectures
+
+| Course | Term | Topic | Slides |
+| --- | --- | --- | --- |
+| 95-891 Introduction to AI| Spring 26 | **AI Agents** | [Coming soon](/assets/slides/95-891-ai-agents-spring-26.pdf) |
+| 95-891 Introduction to AI| Spring 26 | **AI Coding** | [Coming soon](/assets/slides/95-891-ai-agents-spring-26.pdf) |
+| 94-706 Healthcare Information Systems| Spring 26 | **GenAI in Healthcare** | [Coming soon](/assets/slides/95-891-ai-agents-spring-26.pdf) |
+| 95-891 Introduction to AI| Fall 25 | **AI Agents** | [Slides](/assets/slides/fall25_95891_ai_agents.pdf) |
+| 95-891 Introduction to AI| Spring 25 | **Deep Learning for NLP** | [Slides](/assets/slides/spring25_95891_dl_nlp.pdf) |
+
+
+
+---
+
+## TA Experience
+
+### Current Semester (Spring 2026)
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2rem;">
 
@@ -59,9 +75,7 @@ nav_order: 6
   }
 </style>
 
----
-
-## Past Semesters
+### Past Semesters
 
 - **95-891** Introduction to AI (Fall 25, Spring 25, Fall 24)
 - **95-865** Unstructured Data Analytics (Fall 25, Spring 25, Fall 24)
