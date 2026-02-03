@@ -13,7 +13,7 @@ nav_order: 6
 | --- | --- | --- | --- |
 | 95-891 Introduction to AI| Spring 26 | **AI Agents** | [Coming soon](/assets/slides/95-891-ai-agents-spring-26.pdf) |
 | 95-891 Introduction to AI| Spring 26 | **AI Coding** | [Coming soon](/assets/slides/95-891-ai-agents-spring-26.pdf) |
-| 94-706 Healthcare Information Systems| Spring 26 | **GenAI in Healthcare** | [Coming soon](/assets/slides/95-891-ai-agents-spring-26.pdf) |
+| 94-706 Healthcare Information Systems| Spring 26 | **GenAI in Healthcare** | [Slides](/assets/slides/s26_94706.pdf) |
 | 95-891 Introduction to AI| Fall 25 | **AI Agents** | [Slides](/assets/slides/fall25_95891_ai_agents.pdf) |
 | 95-891 Introduction to AI| Spring 25 | **Deep Learning for NLP** | [Slides](/assets/slides/spring25_95891_dl_nlp.pdf) |
 
