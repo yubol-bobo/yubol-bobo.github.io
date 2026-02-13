@@ -81,7 +81,7 @@ cv_pdf: Resume_Yubo_2026.pdf
           colors.background.push('rgba(153, 102, 255, 0.7)');
           colors.border.push('rgba(153, 102, 255, 1)');
           colors.hover.push('rgba(153, 102, 255, 0.9)');
-        } else if (venue === 'IEEE') {
+        } else if (venue === 'ICML') {
           colors.background.push('rgba(102, 51, 153, 0.7)');
           colors.border.push('rgba(102, 51, 153, 1)');
           colors.hover.push('rgba(102, 51, 153, 0.9)');
@@ -116,8 +116,8 @@ cv_pdf: Resume_Yubo_2026.pdf
       'NeurIPS':{
         '2025': 3
       },
-      'IEEE': {
-        '2025': 1
+      'ICML': {
+        '2026': 6
       }
     };
 
