@@ -27,11 +27,11 @@ nav_order: 6
 
 <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2rem;">
 
-  <!-- Course 1: Introduction to AI -->
+  <!-- Course 1 -->
   <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
       <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        95-891
+        <a href="https://www.heinz.cmu.edu/current-students/courses/95-891" target="_blank" style="color: inherit; text-decoration: none;">95-891</a>
       </div>
     </div>
     <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Introduction to AI</h3>
@@ -40,11 +40,11 @@ nav_order: 6
     </p>
   </div>
 
-  <!-- Course 2: Unstructured Data Analytics -->
+  <!-- Course 2 -->
   <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
       <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        95-864
+        <a href="https://www.heinz.cmu.edu/current-students/courses/95-864" target="_blank" style="color: inherit; text-decoration: none;">95-864</a>
       </div>
     </div>
     <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">AI Model Development</h3>
@@ -53,16 +53,16 @@ nav_order: 6
     </p>
   </div>
 
-  <!-- Course 3: Data Focused Python -->
+  <!-- Course 3-->
   <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
     <div style="display: flex; align-items: center; margin-bottom: 1rem;">
       <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        xx-xxx
+        <a href="https://www.heinz.cmu.edu/current-students/courses/94-815" target="_blank" style="color: inherit; text-decoration: none;">94-815</a>
       </div>
     </div>
-    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">coming soon</h3>
+    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Agentic Technologies</h3>
     <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
-      Master Python programming for data analysis and scientific computing.
+      This course teaches systems thinking and simulation through agent-based modeling, then integrates LLM-powered agentic AI so you can design, build, and evaluate adaptive reasoning agents and multi-agent systems for real-world decision-making, while addressing deployment, scaling, and governance challenges.
     </p>
   </div>
 
