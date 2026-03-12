@@ -1,11 +1,10 @@
 /******************************************************************************
  * Atmospheric Background Effects
- * Dark mode: cosmic/nebula with star field
+ * Dark mode: cosmic/nebula with star field + animated nebula clouds
  * Light mode: sky-meets-ocean gradient
  ******************************************************************************/
 
 // ---------- Star field generation (compile-time) ----------
-// Generates random box-shadow star positions
 
 @function generate-stars($count, $max-x: 2000, $max-y: 2000) {
   $shadows: ();
@@ -18,7 +17,6 @@
   @return $shadows;
 }
 
-// Pre-generate star layers at compile time
 $stars-small: generate-stars(80);
 $stars-medium: generate-stars(30);
 $stars-large: generate-stars(8);
@@ -47,54 +45,39 @@ body::after {
   }
 
   &::after {
-    // No stars in light mode — keep it clean
     display: none;
   }
+}
+
+// Light mode — no container pseudo-elements
+:root .container[role="main"]::before,
+:root .container[role="main"]::after {
+  display: none;
 }
 
 // ---------- Dark mode: cosmic nebula + stars ----------
 
 html[data-theme="dark"] body {
+  // Nebula glow layer — slowly drifting clouds
   &::before {
     background:
-      radial-gradient(ellipse at 20% 20%, var(--atm-glow-1) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, var(--atm-glow-2) 0%, transparent 50%);
+      radial-gradient(ellipse 600px 400px at 20% 25%, rgba(120, 40, 200, 0.10) 0%, transparent 70%),
+      radial-gradient(ellipse 500px 350px at 75% 70%, rgba(30, 80, 200, 0.08) 0%, transparent 70%),
+      radial-gradient(ellipse 400px 300px at 50% 50%, rgba(80, 20, 160, 0.05) 0%, transparent 60%);
+    animation: nebula-drift 60s ease-in-out infinite alternate;
   }
 
+  // Star field
   &::after {
     display: block;
-    // Small stars layer
     width: 2000px;
     height: 2000px;
     box-shadow: $stars-small;
     animation: star-drift 120s linear infinite;
-
-    // Overlay medium + large stars via additional pseudo won't work (only 2 pseudos),
-    // so we use the body::after for small stars and add medium/large via box-shadow
-    // by combining all layers into one element with multiple sizes
   }
 }
 
-// We need separate elements for multiple star sizes. Use a dedicated wrapper approach
-// by overriding the ::after with all three layers combined.
-
-// Regenerate with size info baked into opacity for visual depth
-$stars-all: ();
-
-// Small stars (1px implied by box-shadow with 0 spread)
-@each $shadow in $stars-small {
-  $stars-all: append($stars-all, $shadow, comma);
-}
-
-html[data-theme="dark"] body::after {
-  box-shadow: $stars-small;
-  animation: star-drift 120s linear infinite;
-}
-
-// Medium and large stars via a separate element — we'll use the footer's ::before
-// Actually, let's use .container::before and ::after for additional star layers
-// Better approach: use background-image with radial-gradients for larger "stars"
-
+// Medium stars
 html[data-theme="dark"] .container[role="main"]::before {
   content: "";
   position: fixed;
@@ -108,6 +91,7 @@ html[data-theme="dark"] .container[role="main"]::before {
   animation: star-drift-reverse 90s linear infinite;
 }
 
+// Large stars with twinkle
 html[data-theme="dark"] .container[role="main"]::after {
   content: "";
   position: fixed;
@@ -121,44 +105,49 @@ html[data-theme="dark"] .container[role="main"]::after {
   animation: star-twinkle 4s ease-in-out infinite alternate;
 }
 
-// Light mode — no container pseudo-elements
-:root .container[role="main"]::before,
-:root .container[role="main"]::after {
-  display: none;
-}
-
 // ---------- Keyframe animations ----------
 
 @keyframes star-drift {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-500px, -300px);
-  }
+  from { transform: translate(0, 0); }
+  to { transform: translate(-500px, -300px); }
 }
 
 @keyframes star-drift-reverse {
-  from {
-    transform: translate(0, 0);
-  }
-  to {
-    transform: translate(-300px, -500px);
-  }
+  from { transform: translate(0, 0); }
+  to { transform: translate(-300px, -500px); }
 }
 
 @keyframes star-twinkle {
+  0% { opacity: 0.3; }
+  100% { opacity: 0.8; }
+}
+
+// Nebula clouds slowly shift position
+@keyframes nebula-drift {
   0% {
-    opacity: 0.3;
+    background-position: 0% 0%;
+    opacity: 1;
+  }
+  33% {
+    opacity: 0.7;
+  }
+  50% {
+    background-position: 5% 3%;
+    opacity: 1;
+  }
+  66% {
+    opacity: 0.8;
   }
   100% {
-    opacity: 0.8;
+    background-position: -3% -2%;
+    opacity: 1;
   }
 }
 
 // ---------- Reduced motion ----------
 
 @media (prefers-reduced-motion: reduce) {
+  body::before,
   body::after,
   .container[role="main"]::before,
   .container[role="main"]::after {

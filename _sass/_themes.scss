@@ -44,6 +44,9 @@
   --atm-gradient-end: #f0f8ff;
   --atm-glow-1: rgba(135, 206, 250, 0.04);
   --atm-glow-2: rgba(100, 180, 255, 0.03);
+  --atm-navbar-bg: rgba(76, 175, 80, 0.88);
+  --atm-navbar-text: #ffffff;
+  --atm-navbar-hover: #e8f5e9;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -130,6 +133,9 @@ html[data-theme="dark"] {
   --atm-gradient-end: #0a0a1a;
   --atm-glow-1: rgba(100, 60, 180, 0.12);
   --atm-glow-2: rgba(30, 80, 180, 0.08);
+  --atm-navbar-bg: rgba(10, 10, 26, 0.85);
+  --atm-navbar-text: #e0e0e0;
+  --atm-navbar-hover: #38bdf8;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #1a3a2a;

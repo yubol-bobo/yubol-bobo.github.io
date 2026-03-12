@@ -274,7 +274,7 @@ ul.task-list input[type="checkbox"] {
 .navbar {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
-  background-color: rgba(var(--global-bg-color-rgb), 0.85);
+  background-color: var(--atm-navbar-bg);
   backdrop-filter: blur(12px) saturate(180%);
   -webkit-backdrop-filter: blur(12px) saturate(180%);
   transition: box-shadow 0.3s ease;
@@ -318,7 +318,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .navbar-brand {
-    color: var(--global-text-color);
+    color: var(--atm-navbar-text);
     font-family: 'Playfair Display', serif;
     font-weight: 600;
     font-size: 1.75rem;
@@ -337,7 +337,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .navbar-nav .nav-item .nav-link {
-    color: var(--global-text-color);
+    color: var(--atm-navbar-text);
     border: 1px solid transparent;
     border-radius: 6px;
     padding: 0.75rem 0.65rem;
@@ -349,9 +349,9 @@ ul.task-list input[type="checkbox"] {
     letter-spacing: 0.3px;
 
     &:hover {
-      color: var(--global-hover-color);
-      border-color: var(--global-hover-color);
-      background-color: var(--global-divider-color);
+      color: var(--atm-navbar-hover);
+      border-color: rgba(255, 255, 255, 0.2);
+      background-color: rgba(255, 255, 255, 0.1);
       transform: translateY(-2px);
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     }
@@ -403,13 +403,13 @@ ul.task-list input[type="checkbox"] {
       }
 
       i::before {
-        color: var(--global-text-color);
+        color: var(--atm-navbar-text);
         transition-property: all 0.2s ease-in-out;
       }
 
       &:hover {
         i::before {
-          color: var(--global-theme-color);
+          color: var(--atm-navbar-hover);
         }
       }
     }
@@ -421,7 +421,7 @@ ul.task-list input[type="checkbox"] {
     display: block;
     width: 22px;
     height: 2px;
-    background-color: var(--global-text-color);
+    background-color: var(--atm-navbar-text);
     border-radius: 1px;
     margin-bottom: 4px;
     transition: transform 0.2s ease, opacity 0.2s ease;

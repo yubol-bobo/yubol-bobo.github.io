@@ -210,6 +210,7 @@ exclude:
   - _pages/about_einstein.md
   - purgecss.config.js
   - README.md
+  - assets/jupyter/blog.ipynb
   - readme_preview/
   - vendor
 keep_files:
