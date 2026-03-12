@@ -9,7 +9,9 @@ html {
 body {
   padding-bottom: 70px;
   color: var(--global-text-color);
-  background-color: var(--global-bg-color);
+  background-color: var(--atm-gradient-start);
+  background: linear-gradient(180deg, var(--atm-gradient-start), var(--atm-gradient-mid), var(--atm-gradient-end));
+  background-attachment: fixed;
 
   h1,
   h2,

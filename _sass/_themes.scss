@@ -38,6 +38,13 @@
   --global-border-radius: #{$radius-md};
   --global-transition-speed: 0.25s;
 
+  // Atmosphere
+  --atm-gradient-start: #eef5ff;
+  --atm-gradient-mid: #ffffff;
+  --atm-gradient-end: #f0f8ff;
+  --atm-glow-1: rgba(135, 206, 250, 0.04);
+  --atm-glow-2: rgba(100, 180, 255, 0.03);
+
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
   --global-tip-block-text: #215d42;
@@ -116,6 +123,13 @@ html[data-theme="dark"] {
   --global-card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.3);
   --global-border-radius: #{$radius-md};
   --global-transition-speed: 0.25s;
+
+  // Atmosphere
+  --atm-gradient-start: #0a0a1a;
+  --atm-gradient-mid: #1a0a2e;
+  --atm-gradient-end: #0a0a1a;
+  --atm-glow-1: rgba(100, 60, 180, 0.12);
+  --atm-glow-2: rgba(30, 80, 180, 0.08);
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #1a3a2a;
