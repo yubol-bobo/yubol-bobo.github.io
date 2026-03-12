@@ -1,30 +1,12 @@
 /******************************************************************************
  * Atmospheric Background Effects
- * Dark mode: cosmic/nebula with star field + animated nebula clouds
+ * Dark mode: nebula glow (stars rendered by starfield.js canvas)
  * Light mode: sky-meets-ocean gradient
  ******************************************************************************/
 
-// ---------- Star field generation (compile-time) ----------
-
-@function generate-stars($count, $max-x: 2000, $max-y: 2000) {
-  $shadows: ();
-  @for $i from 1 through $count {
-    $x: random($max-x) + 0px;
-    $y: random($max-y) + 0px;
-    $opacity: (random(60) + 40) / 100; // 0.4–1.0
-    $shadows: append($shadows, #{$x} #{$y} 0 rgba(255, 255, 255, $opacity), comma);
-  }
-  @return $shadows;
-}
-
-$stars-small: generate-stars(80);
-$stars-medium: generate-stars(30);
-$stars-large: generate-stars(8);
-
 // ---------- Shared pseudo-element base ----------
 
-body::before,
-body::after {
+body::before {
   content: "";
   position: fixed;
   top: 0;
@@ -37,92 +19,26 @@ body::after {
 
 // ---------- Light mode: sky & ocean ----------
 
-:root body {
-  &::before {
-    background:
-      radial-gradient(ellipse at 50% 0%, var(--atm-glow-1) 0%, transparent 60%),
-      radial-gradient(ellipse at 50% 100%, var(--atm-glow-2) 0%, transparent 50%);
-  }
-
-  &::after {
-    display: none;
-  }
+:root body::before {
+  background:
+    radial-gradient(ellipse at 50% 0%, var(--atm-glow-1) 0%, transparent 60%),
+    radial-gradient(ellipse at 50% 100%, var(--atm-glow-2) 0%, transparent 50%);
+  animation: none;
 }
 
-// Light mode — no container pseudo-elements
-:root .container[role="main"]::before,
-:root .container[role="main"]::after {
-  display: none;
-}
+// ---------- Dark mode: nebula glow ----------
 
-// ---------- Dark mode: cosmic nebula + stars ----------
-
-html[data-theme="dark"] body {
-  // Nebula glow layer — slowly drifting clouds
-  &::before {
-    background:
-      radial-gradient(ellipse 600px 400px at 20% 25%, rgba(120, 40, 200, 0.10) 0%, transparent 70%),
-      radial-gradient(ellipse 500px 350px at 75% 70%, rgba(30, 80, 200, 0.08) 0%, transparent 70%),
-      radial-gradient(ellipse 400px 300px at 50% 50%, rgba(80, 20, 160, 0.05) 0%, transparent 60%);
-    animation: nebula-drift 60s ease-in-out infinite alternate;
-  }
-
-  // Star field
-  &::after {
-    display: block;
-    width: 2000px;
-    height: 2000px;
-    box-shadow: $stars-small;
-    animation: star-drift 120s linear infinite;
-  }
-}
-
-// Medium stars
-html[data-theme="dark"] .container[role="main"]::before {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 2000px;
-  height: 2000px;
-  z-index: -1;
-  pointer-events: none;
-  box-shadow: $stars-medium;
-  animation: star-drift-reverse 90s linear infinite;
-}
-
-// Large stars with twinkle
-html[data-theme="dark"] .container[role="main"]::after {
-  content: "";
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 2000px;
-  height: 2000px;
-  z-index: -1;
-  pointer-events: none;
-  box-shadow: $stars-large;
-  animation: star-twinkle 4s ease-in-out infinite alternate;
+html[data-theme="dark"] body::before {
+  background:
+    radial-gradient(ellipse 700px 500px at 15% 20%, rgba(120, 40, 200, 0.13) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 80% 75%, rgba(30, 80, 200, 0.11) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 350px at 50% 45%, rgba(80, 20, 160, 0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 300px 200px at 65% 30%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+  animation: nebula-drift 60s ease-in-out infinite alternate;
 }
 
 // ---------- Keyframe animations ----------
 
-@keyframes star-drift {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-500px, -300px); }
-}
-
-@keyframes star-drift-reverse {
-  from { transform: translate(0, 0); }
-  to { transform: translate(-300px, -500px); }
-}
-
-@keyframes star-twinkle {
-  0% { opacity: 0.3; }
-  100% { opacity: 0.8; }
-}
-
-// Nebula clouds slowly shift position
 @keyframes nebula-drift {
   0% {
     background-position: 0% 0%;
@@ -147,10 +63,7 @@ html[data-theme="dark"] .container[role="main"]::after {
 // ---------- Reduced motion ----------
 
 @media (prefers-reduced-motion: reduce) {
-  body::before,
-  body::after,
-  .container[role="main"]::before,
-  .container[role="main"]::after {
+  body::before {
     animation: none !important;
   }
 }

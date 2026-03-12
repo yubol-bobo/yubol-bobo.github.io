@@ -6,12 +6,27 @@ html {
   font-size: 18px; // Increase base font size from default 16px to 18px (12.5% larger)
 }
 
+// Dark background on html so stars (on body pseudo-elements) sit on top
+html[data-theme="dark"] {
+  background-color: var(--atm-gradient-start);
+  background: linear-gradient(180deg, var(--atm-gradient-start), var(--atm-gradient-mid), var(--atm-gradient-end));
+  background-attachment: fixed;
+}
+
 body {
   padding-bottom: 70px;
   color: var(--global-text-color);
   background-color: var(--atm-gradient-start);
   background: linear-gradient(180deg, var(--atm-gradient-start), var(--atm-gradient-mid), var(--atm-gradient-end));
   background-attachment: fixed;
+  position: relative;
+  z-index: 0; // Creates stacking context so ::before/::after with z-index:-1 sit above html bg
+
+  // Dark mode: transparent body so stars (pseudo-elements) are visible against html gradient
+  html[data-theme="dark"] & {
+    background: transparent;
+    background-color: transparent;
+  }
 
   h1,
   h2,
