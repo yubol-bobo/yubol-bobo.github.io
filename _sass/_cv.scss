@@ -163,6 +163,7 @@ a.anchor {
 
 .cv .card {
   scroll-margin-top: 100px;
+  border-left: 3px solid var(--global-theme-color);
 }
 
 ul.timeline {
@@ -180,8 +181,8 @@ ul.timeline li {
 span.badge-toc {
   color: var(--global-bg-color);
   background-color: var(--global-theme-color);
-  border-radius: 0.125rem;
-  padding: 0.125rem 0.5rem 0.125rem 0.5rem;
+  border-radius: $radius-sm;
+  padding: 0.2rem 0.6rem;
   font-weight: 700 !important;
   display: inline-block;
   inline-size: fit-content;
@@ -190,13 +191,14 @@ span.badge-toc {
 ul.timeline li::before {
   content: "";
   min-height: 2.5rem;
-  width: 1px;
-  background: var(--global-text-color);
+  width: 2px;
+  background: var(--global-theme-color);
   margin: 0;
   padding: 0;
   position: absolute;
   left: 2px;
   top: -0.5rem;
+  opacity: 0.5;
 }
 
 /*ul.timeline::before {

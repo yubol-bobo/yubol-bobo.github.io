@@ -13,7 +13,7 @@ layout: default
     </h1>
     <p class="desc">
       {{ page.subtitle }}<br>
-      <img src="https://hits.sh/yubol-bobo.github.io.svg?style=for-the-badge&label=Profile%20Views&color=8b5cf6" alt="Profile views" style="margin-top: 5px;" />
+      <img src="https://hits.sh/yubol-bobo.github.io.svg?style=for-the-badge&label=Profile%20Views&color=9333ea" alt="Profile views" style="margin-top: 5px;" />
     </p>
   </header>
 
@@ -73,56 +73,64 @@ layout: default
 
     <!-- News -->
     {% if page.announcements and page.announcements.enabled %}
-      <h2>
-        <a href="{{ '/news/' | relative_url }}" style="color: inherit">🎉 News</a>
-      </h2>
-      {% include news.liquid limit=true %}
+      <div class="animate-on-scroll">
+        <h2>
+          <a href="{{ '/news/' | relative_url }}" style="color: inherit">🎉 News</a>
+        </h2>
+        {% include news.liquid limit=true %}
+      </div>
     {% endif %}
 
     <!-- Separator between News and Awards -->
     {% if page.announcements and page.announcements.enabled and page.awards and page.awards.enabled %}
-      <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--global-divider-color);">
+      <hr class="section-divider">
     {% endif %}
 
     <!-- Awards -->
     {% if page.awards and page.awards.enabled %}
-      <h2>
-        <a href="{{ '/awards/' | relative_url }}" style="color: inherit">🏆 Awards</a>
-      </h2>
-      <div class="awards">
-        <ul>
-          <li><strong>2025</strong> - TCS Presidential Fellowship, Carnegie Mellon University</li>
-          <li><strong>2024</strong> - <a href="https://www.cs.cmu.edu/cmlh/2024-generative-ai-fellows">CMLH Fellowship in Generative AI in Healthcare</a>, Carnegie Mellon University</li>
-          <li><strong>2023</strong> - <a href="https://www.cs.cmu.edu/cmlh/digital-health-archive/cmlh-digital-health-fellows-2023">CMLH Fellowship in Digital Health Innovation</a>, Carnegie Mellon University</li>
-          <!-- Add more awards here -->
-        </ul>
+      <div class="animate-on-scroll">
+        <h2>
+          <a href="{{ '/awards/' | relative_url }}" style="color: inherit">🏆 Awards</a>
+        </h2>
+        <div class="awards">
+          <ul>
+            <li><strong>2025</strong> - TCS Presidential Fellowship, Carnegie Mellon University</li>
+            <li><strong>2024</strong> - <a href="https://www.cs.cmu.edu/cmlh/2024-generative-ai-fellows">CMLH Fellowship in Generative AI in Healthcare</a>, Carnegie Mellon University</li>
+            <li><strong>2023</strong> - <a href="https://www.cs.cmu.edu/cmlh/digital-health-archive/cmlh-digital-health-fellows-2023">CMLH Fellowship in Digital Health Innovation</a>, Carnegie Mellon University</li>
+            <!-- Add more awards here -->
+          </ul>
+        </div>
       </div>
     {% endif %}
 
     <!-- Separator between Awards and Selected Publications -->
     {% if page.awards and page.awards.enabled and page.selected_papers %}
-      <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--global-divider-color);">
+      <hr class="section-divider">
     {% endif %}
 
     <!-- Latest posts -->
     {% if page.latest_posts and page.latest_posts.enabled %}
-      <h2>
-        <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
-      </h2>
-      {% include latest_posts.liquid %}
+      <div class="animate-on-scroll">
+        <h2>
+          <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
+        </h2>
+        {% include latest_posts.liquid %}
+      </div>
     {% endif %}
 
     <!-- Selected papers -->
     {% if page.selected_papers %}
-      <h2>
-        <a href="{{ '/publications/' | relative_url }}" style="color: inherit">⭐ Selected publications</a>
-      </h2>
-      {% include selected_papers.liquid %}
+      <div class="animate-on-scroll">
+        <h2>
+          <a href="{{ '/publications/' | relative_url }}" style="color: inherit">⭐ Selected publications</a>
+        </h2>
+        {% include selected_papers.liquid %}
+      </div>
     {% endif %}
 
     <!-- Social -->
     {% if page.social %}
-      <div class="social">
+      <div class="social animate-on-scroll">
         <div class="contact-icons">{% include social.liquid %}</div>
 
         <div class="contact-note">{{ site.contact_note }}</div>
@@ -131,8 +139,9 @@ layout: default
 
     <!-- GitHub Stats Section -->
     {% if site.data.repositories.github_users %}
-      <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--global-divider-color);">
-      <h2>🖥️ GitHub Activity</h2>
+      <hr class="section-divider">
+      <div class="animate-on-scroll">
+        <h2>🖥️ GitHub Activity</h2>
 
       <!-- GitHub Contribution Heatmap -->
       <div style="margin-top: 2rem;">
@@ -155,6 +164,7 @@ layout: default
           </div>
         {% endfor %}
       </div>
+      </div>
     {% endif %}
 
     {% if site.newsletter and site.newsletter.enabled and site.footer_fixed %}
@@ -162,12 +172,14 @@ layout: default
     {% endif %}
 
     <!-- ClustrMaps Globe Widget -->
-    <hr style="margin: 2rem 0; border: none; border-top: 1px solid var(--global-divider-color);">
-    <h2>🌏 Visitors Around the World</h2>
+    <hr class="section-divider">
+    <div class="animate-on-scroll">
+      <h2>🌏 Visitors Around the World</h2>
     <div style="margin: 2rem auto; text-align: center; max-width: 450px;">
       <div id="mapContainer" style="width: 90%; margin: 0 auto;">
         <script type="text/javascript" id="clstr_globe" src="//clustrmaps.com/globe.js?d=o_qbEv8Xo-q_5dIASRm6jZrGDrS-mj804D8eZnOIJK4"></script>
       </div>
+    </div>
     </div>
   </article>
 </div>

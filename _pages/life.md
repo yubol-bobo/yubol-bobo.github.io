@@ -10,21 +10,6 @@ nav_order: 7
 <!-- Section 1: Life Moments Gallery -->
 ## ✨ Moments That Stay
 
-<style>
-  .life-moments .card-img-top {
-    max-height: 300px;
-    object-fit: cover;
-    width: 100%;
-  }
-  .life-moments .card-body {
-    padding: 0.75rem;
-  }
-  .life-moments .card-text {
-    font-size: 0.9rem;
-    margin-bottom: 0;
-  }
-</style>
-
 <div class="row row-cols-1 row-cols-md-3 life-moments">
   <!-- Card 1 -->
   <div class="col mb-4">

@@ -28,12 +28,23 @@ function progressBarSetup() {
     initializeProgressElement();
     $(document).on("scroll", function () {
       progressBar.attr({ value: getCurrentScrollPosition() });
+      updateNavbarScroll();
     });
     $(window).on("resize", initializeProgressElement);
   } else {
     resizeProgressBar();
-    $(document).on("scroll", resizeProgressBar);
+    $(document).on("scroll", function () {
+      resizeProgressBar();
+      updateNavbarScroll();
+    });
     $(window).on("resize", resizeProgressBar);
+  }
+}
+
+function updateNavbarScroll() {
+  var navbar = document.querySelector(".navbar");
+  if (navbar) {
+    navbar.classList.toggle("scrolled", window.scrollY > 10);
   }
 }
 /*

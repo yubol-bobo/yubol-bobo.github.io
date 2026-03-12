@@ -1,6 +1,6 @@
 ---
 ---
-<div class="row">
+<div class="row animate-on-scroll">
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
       {%- if entry.abbr -%}
@@ -121,16 +121,14 @@
           class="more-authors"
           title="click to view {{ more_authors_hide }}"
           onclick="
-              var element = $(this);
-              element.attr('title', '');
-              var more_authors_text = element.text() == '{{ more_authors_hide }}' ? '{{ more_authors_show }}' : '{{ more_authors_hide }}';
-              var cursorPosition = 0;
-              var textAdder = setInterval(function(){
-                element.html(more_authors_text.substring(0, cursorPosition + 1));
-                if (++cursorPosition == more_authors_text.length){
-                  clearInterval(textAdder);
-                }
-            }, '{{ site.more_authors_animation_delay }}');
+              var el = this;
+              el.title = '';
+              var moreText = el.textContent.trim() === '{{ more_authors_hide }}' ? '{{ more_authors_show }}' : '{{ more_authors_hide }}';
+              var pos = 0;
+              var adder = setInterval(function(){
+                el.innerHTML = moreText.substring(0, pos + 1);
+                if (++pos === moreText.length) clearInterval(adder);
+              }, '{{ site.more_authors_animation_delay }}');
           "
         >
           {{- more_authors_hide -}}

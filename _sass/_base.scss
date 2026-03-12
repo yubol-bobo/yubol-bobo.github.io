@@ -2,6 +2,18 @@
  * Styles for the base elements of the theme.
  ******************************************************************************/
 
+// Accessibility: respect user motion preferences
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
 // Typography
 
 p,
@@ -20,6 +32,12 @@ strong {
 }
 
 hr {
+  border-top: 1px solid var(--global-divider-color);
+}
+
+hr.section-divider {
+  margin: 2rem 0;
+  border: none;
   border-top: 1px solid var(--global-divider-color);
 }
 
@@ -168,6 +186,16 @@ ul.task-list input[type="checkbox"] {
 
 .card {
   background-color: var(--global-card-bg-color);
+  border-radius: var(--global-border-radius);
+  box-shadow: var(--global-card-shadow);
+  transition: transform var(--global-transition-speed) ease, box-shadow var(--global-transition-speed) ease;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--global-card-shadow-hover);
+    }
+  }
 
   .card-img {
     width: 100%;
@@ -179,7 +207,7 @@ ul.task-list input[type="checkbox"] {
   }
 
   .card-body {
-    padding: 1.25rem 1.25rem 1.25rem 1.25rem;
+    padding: 1.25rem;
   }
 }
 
@@ -246,8 +274,14 @@ ul.task-list input[type="checkbox"] {
 .navbar {
   box-shadow: none;
   border-bottom: 1px solid var(--global-divider-color);
-  background-color: var(--global-bg-color);
-  opacity: 0.95;
+  background-color: rgba(var(--global-bg-color-rgb), 0.85);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  transition: box-shadow 0.3s ease;
+
+  &.scrolled {
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+  }
 }
 
 .navbar .dropdown-menu {
@@ -289,8 +323,8 @@ ul.task-list input[type="checkbox"] {
     font-weight: 600;
     font-size: 1.75rem;
     letter-spacing: 0.5px;
-    transition: all 0.3s ease;
-    
+    transition: letter-spacing 0.3s ease, color 0.3s ease;
+
     &:hover {
       letter-spacing: 1px;
     }
@@ -308,7 +342,7 @@ ul.task-list input[type="checkbox"] {
     border-radius: 6px;
     padding: 0.75rem 0.65rem;
     margin: 0 0.1rem;
-    transition: all 0.3s ease;
+    transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
     background-color: transparent;
     font-family: 'Playfair Display', serif;
     font-weight: 600;
@@ -390,7 +424,7 @@ ul.task-list input[type="checkbox"] {
     background-color: var(--global-text-color);
     border-radius: 1px;
     margin-bottom: 4px;
-    transition: all 0.2s;
+    transition: transform 0.2s ease, opacity 0.2s ease;
   }
 
   .top-bar {
@@ -429,7 +463,7 @@ ul.task-list input[type="checkbox"] {
   border-radius: 6px;
   background-color: transparent;
   color: var(--global-text-color);
-  transition: all 0.3s ease;
+  transition: color 0.3s ease, border-color 0.3s ease, background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -560,13 +594,24 @@ footer.fixed-bottom {
 }
 
 footer.sticky-bottom {
-  border-top: 1px solid var(--global-divider-color);
+  border-top: 2px solid var(--global-theme-color);
   padding-top: 40px;
   padding-bottom: 40px;
   font-size: 0.9rem;
+  color: var(--global-text-color-light);
 
   .container {
     text-align: center;
+  }
+
+  a {
+    color: var(--global-theme-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: var(--global-hover-color);
+    }
   }
 }
 
@@ -666,9 +711,18 @@ footer.sticky-bottom {
 
   li {
     border-bottom: 1px solid var(--global-divider-color);
+    border-left: 3px solid transparent;
     list-style: none;
     padding-top: 2rem;
     padding-bottom: 2rem;
+    padding-left: 0.75rem;
+    transition: border-left-color var(--global-transition-speed) ease;
+
+    @media (hover: hover) {
+      &:hover {
+        border-left-color: var(--global-theme-color);
+      }
+    }
 
     .post-meta {
       color: var(--global-text-color-light);
@@ -749,8 +803,17 @@ footer.sticky-bottom {
   }
 
   .card {
+    overflow: hidden;
+
     img {
       width: 100%;
+      transition: transform 0.3s ease;
+    }
+
+    @media (hover: hover) {
+      &:hover img {
+        transform: scale(1.03);
+      }
     }
   }
 
@@ -765,7 +828,7 @@ footer.sticky-bottom {
   }
 
   h2.category {
-    color: var(--global-divider-color);
+    color: var(--global-text-color-light);
     border-bottom: 1px solid var(--global-divider-color);
     padding-top: 0.5rem;
     margin-top: 2rem;
@@ -796,11 +859,22 @@ footer.sticky-bottom {
   }
 
   h2.bibliography {
-    color: var(--global-divider-color);
+    color: var(--global-text-color-light);
     border-top: 1px solid var(--global-divider-color);
     padding-top: 1rem;
     margin-top: 2rem;
     text-align: right;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: -1px;
+      right: 0;
+      width: 60px;
+      height: 2px;
+      background-color: var(--global-theme-color);
+    }
   }
 
   ol.bibliography {
@@ -810,8 +884,27 @@ footer.sticky-bottom {
 
     li {
       margin-bottom: 1rem;
+      border-left: 3px solid transparent;
+      padding-left: 0.75rem;
+      transition: border-color var(--global-transition-speed) ease;
+
+      @media (hover: hover) {
+        &:hover {
+          border-left-color: var(--global-theme-color);
+        }
+      }
 
       .preview {
+        overflow: hidden;
+        border-radius: $radius-sm;
+
+        img {
+          transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+          transform: scale(1.03);
+        }
       }
 
       .abbr {
@@ -873,15 +966,15 @@ footer.sticky-bottom {
         a.btn {
           color: var(--global-text-color);
           border: 1px solid var(--global-text-color);
-          padding-left: 1rem;
-          padding-right: 1rem;
-          padding-top: 0.25rem;
-          padding-bottom: 0.25rem;
+          padding: 0.25rem 1rem;
           margin-left: 0;
+          border-radius: $radius-sm;
+          transition: color 0.2s ease, border-color 0.2s ease, background-color 0.2s ease;
 
           &:hover {
             color: var(--global-theme-color);
             border-color: var(--global-theme-color);
+            background-color: rgba(var(--global-theme-color-rgb), 0.05);
           }
         }
         a.award.btn {
@@ -909,11 +1002,8 @@ footer.sticky-bottom {
         max-height: 0px;
         overflow: hidden;
         text-align: justify;
-        transition-property: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -ms-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
-        transition: all 0.15s ease;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
 
         p {
           line-height: 1.4em;
@@ -929,11 +1019,8 @@ footer.sticky-bottom {
 
       .hidden.open {
         max-height: 100em;
-        transition-property: 0.15s ease;
-        -moz-transition: 0.15s ease;
-        -ms-transition: 0.15s ease;
-        -o-transition: 0.15s ease;
-        transition: all 0.15s ease;
+        opacity: 1;
+        transition: max-height 0.3s ease, opacity 0.3s ease;
       }
 
       div.abstract.hidden {
@@ -985,7 +1072,7 @@ html.transition,
 html.transition *,
 html.transition *:before,
 html.transition *:after {
-  transition: all 750ms !important;
+  transition: color 750ms, background-color 750ms, border-color 750ms, box-shadow 750ms !important;
   transition-delay: 0 !important;
 }
 
@@ -1586,4 +1673,108 @@ figure.cover {
   a.cover-link:hover {
     color: #23212d !important;
   }
+}
+
+// Teaching page
+.teaching-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.course-card {
+  padding: 1.5rem;
+  background-color: var(--global-card-bg-color);
+  border: 1px solid var(--global-divider-color);
+  border-radius: var(--global-border-radius);
+  box-shadow: var(--global-card-shadow);
+  transition: transform var(--global-transition-speed) ease, box-shadow var(--global-transition-speed) ease;
+
+  @media (hover: hover) {
+    &:hover {
+      transform: translateY(-3px);
+      box-shadow: var(--global-card-shadow-hover);
+    }
+  }
+
+  .course-card-badge {
+    display: inline-block;
+    background-color: var(--global-theme-color);
+    padding: 0.5rem 1rem;
+    border-radius: $radius-sm;
+    font-weight: bold;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+
+    a {
+      color: white;
+      text-decoration: none;
+    }
+  }
+
+  .course-card-title {
+    margin-top: 0;
+    margin-bottom: 0.5rem;
+    font-size: 1.2rem;
+  }
+
+  .course-card-desc {
+    color: var(--global-text-color-light);
+    font-size: 0.9rem;
+    margin: 0;
+  }
+}
+
+// Life page
+.life-moments {
+  .card {
+    overflow: hidden;
+  }
+
+  .card-img-top {
+    max-height: 300px;
+    object-fit: cover;
+    width: 100%;
+    transition: transform 0.3s ease;
+  }
+
+  @media (hover: hover) {
+    .card:hover .card-img-top {
+      transform: scale(1.05);
+    }
+  }
+
+  .card-body {
+    padding: 0.75rem;
+  }
+
+  .card-text {
+    font-size: 0.9rem;
+    margin-bottom: 0;
+  }
+}
+
+// Scroll entrance animations
+.animate-on-scroll {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.5s ease;
+
+  &.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Focus-visible accessibility
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible,
+select:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--global-theme-color);
+  outline-offset: 2px;
 }

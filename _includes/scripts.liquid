@@ -7,6 +7,9 @@
 
 <!-- Bootsrap & MDB scripts -->
 <script src="{{ '/assets/js/bootstrap.bundle.min.js' | relative_url }}"></script>
+
+<!-- Scroll entrance animations -->
+<script defer src="{{ '/assets/js/scroll-animations.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
 <script
   src="{{ site.third_party_libraries.mdb.url.js }}"
   integrity="{{ site.third_party_libraries.mdb.integrity.js }}"
@@ -268,6 +271,14 @@
 {% if site.enable_progressbar %}
   <!-- Scrolling Progress Bar -->
   <script defer src="{{ '/assets/js/progress-bar.js' | relative_url | bust_file_cache }}" type="text/javascript"></script>
+{% else %}
+  <!-- Navbar scroll shadow (when progress bar is disabled) -->
+  <script>
+    document.addEventListener("scroll", function () {
+      var navbar = document.querySelector(".navbar");
+      if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 10);
+    }, { passive: true });
+  </script>
 {% endif %}
 
 {% if page.images %}

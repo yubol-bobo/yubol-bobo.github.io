@@ -7,10 +7,12 @@
 :root {
   color-scheme: light;
   --global-bg-color: #{$white-color};
+  --global-bg-color-rgb: 255, 255, 255;
   --global-code-bg-color: #{$code-bg-color-light};
   --global-text-color: #{$black-color};
   --global-text-color-light: #{$grey-color};
   --global-theme-color: #{$purple-color};
+  --global-theme-color-rgb: 147, 51, 234;
   --global-hover-color: #{$purple-color};
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-dark};
@@ -29,6 +31,12 @@
   --global-back-to-top-text-color: #{$white-color};
   --global-newsletter-bg-color: #{$white-color};
   --global-newsletter-text-color: #{$black-color};
+
+  // Design tokens
+  --global-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  --global-card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.08);
+  --global-border-radius: #{$radius-md};
+  --global-transition-speed: 0.25s;
 
   --global-tip-block: #42b983;
   --global-tip-block-bg: #e2f5ec;
@@ -79,10 +87,12 @@
 html[data-theme="dark"] {
   color-scheme: dark;
   --global-bg-color: #{$grey-color-dark};
+  --global-bg-color-rgb: 28, 28, 29;
   --global-code-bg-color: #{$code-bg-color-dark};
   --global-text-color: #{$grey-color-light};
   --global-text-color-light: #{$grey-color};
   --global-theme-color: #{$cyan-color};
+  --global-theme-color-rgb: 56, 189, 248;
   --global-hover-color: #{$cyan-color};
   --global-hover-text-color: #{$white-color};
   --global-footer-bg-color: #{$grey-color-light};
@@ -101,18 +111,24 @@ html[data-theme="dark"] {
   --global-newsletter-bg-color: #{$grey-color-light};
   --global-newsletter-text-color: #{$grey-color-dark};
 
+  // Design tokens (dark)
+  --global-card-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.15);
+  --global-card-shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.3);
+  --global-border-radius: #{$radius-md};
+  --global-transition-speed: 0.25s;
+
   --global-tip-block: #42b983;
-  --global-tip-block-bg: #e2f5ec;
-  --global-tip-block-text: #215d42;
-  --global-tip-block-title: #359469;
+  --global-tip-block-bg: #1a3a2a;
+  --global-tip-block-text: #a3d9b8;
+  --global-tip-block-title: #42b983;
   --global-warning-block: #e7c000;
-  --global-warning-block-bg: #fff8d8;
-  --global-warning-block-text: #6b5900;
-  --global-warning-block-title: #b29400;
-  --global-danger-block: #c00;
-  --global-danger-block-bg: #ffe0e0;
-  --global-danger-block-text: #600;
-  --global-danger-block-title: #c00;
+  --global-warning-block-bg: #3a3000;
+  --global-warning-block-text: #e7d88a;
+  --global-warning-block-title: #e7c000;
+  --global-danger-block: #ff6b6b;
+  --global-danger-block-bg: #3a1010;
+  --global-danger-block-text: #ff9b9b;
+  --global-danger-block-title: #ff6b6b;
 
   .only-light {
     display: none;

@@ -25,55 +25,42 @@ nav_order: 6
 
 ### Current Semester (Spring 2026)
 
-<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem; margin-top: 1.5rem; margin-bottom: 2rem;">
+<div class="teaching-grid">
 
   <!-- Course 1 -->
-  <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-      <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        <a href="https://www.heinz.cmu.edu/current-students/courses/95-891" target="_blank" style="color: inherit; text-decoration: none;">95-891</a>
-      </div>
+  <div class="course-card animate-on-scroll">
+    <div class="course-card-badge">
+      <a href="https://www.heinz.cmu.edu/current-students/courses/95-891" target="_blank">95-891</a>
     </div>
-    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Introduction to AI</h3>
-    <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
+    <h3 class="course-card-title">Introduction to AI</h3>
+    <p class="course-card-desc">
       This course provides a comprehensive introduction to core AI concepts and techniques—spanning machine learning, computer vision, natural language processing, robotics, and generative AI—while examining real-world applications, current limitations, and the human, ethical, and policy implications of building intelligent systems.
     </p>
   </div>
 
   <!-- Course 2 -->
-  <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-      <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        <a href="https://www.heinz.cmu.edu/current-students/courses/95-864" target="_blank" style="color: inherit; text-decoration: none;">95-864</a>
-      </div>
+  <div class="course-card animate-on-scroll">
+    <div class="course-card-badge">
+      <a href="https://www.heinz.cmu.edu/current-students/courses/95-864" target="_blank">95-864</a>
     </div>
-    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">AI Model Development</h3>
-    <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
+    <h3 class="course-card-title">AI Model Development</h3>
+    <p class="course-card-desc">
       A rigorous, hands-on course where you build, fine-tune, evaluate, and deploy real-world LLM systems—covering prompt engineering, RAG, efficient adaptation (LoRA/QLoRA), agentic workflows, and production optimization end to end.
     </p>
   </div>
 
   <!-- Course 3-->
-  <div class="course-card" style="padding: 1.5rem; background-color: var(--global-bg-color); border: 1px solid var(--global-divider-color); border-radius: 8px; transition: transform 0.3s ease, box-shadow 0.3s ease;">
-    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
-      <div style="background-color: var(--global-theme-color); color: white; padding: 0.5rem 1rem; border-radius: 4px; font-weight: bold; font-size: 1.1rem;">
-        <a href="https://www.heinz.cmu.edu/current-students/courses/94-815" target="_blank" style="color: inherit; text-decoration: none;">94-815</a>
-      </div>
+  <div class="course-card animate-on-scroll">
+    <div class="course-card-badge">
+      <a href="https://www.heinz.cmu.edu/current-students/courses/94-815" target="_blank">94-815</a>
     </div>
-    <h3 style="margin-top: 0; margin-bottom: 0.5rem; font-size: 1.2rem;">Agentic Technologies</h3>
-    <p style="color: var(--global-text-color-light); font-size: 0.9rem; margin: 0;">
+    <h3 class="course-card-title">Agentic Technologies</h3>
+    <p class="course-card-desc">
       This course teaches systems thinking and simulation through agent-based modeling, then integrates LLM-powered agentic AI so you can design, build, and evaluate adaptive reasoning agents and multi-agent systems for real-world decision-making, while addressing deployment, scaling, and governance challenges.
     </p>
   </div>
 
 </div>
-
-<style>
-  .course-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  }
-</style>
 
 ### Past Semesters
 

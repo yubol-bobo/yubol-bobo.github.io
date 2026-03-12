@@ -1,24 +1,29 @@
 // add bootstrap classes to tables
-$(document).ready(function () {
-  $("table").each(function () {
-    if (determineComputedTheme() == "dark") {
-      $(this).addClass("table-dark");
+document.addEventListener("DOMContentLoaded", function () {
+  var isDark = determineComputedTheme() === "dark";
+  document.querySelectorAll("table").forEach(function (table) {
+    if (isDark) {
+      table.classList.add("table-dark");
     } else {
-      $(this).removeClass("table-dark");
+      table.classList.remove("table-dark");
     }
 
-    // only select tables that are not inside an element with "news" (about page) or "card" (cv page) class
-    if (
-      $(this).parents('[class*="news"]').length == 0 &&
-      $(this).parents('[class*="card"]').length == 0 &&
-      $(this).parents('[class*="archive"]').length == 0 &&
-      $(this).parents("code").length == 0
-    ) {
-      // make table use bootstrap-table
-      $(this).attr("data-toggle", "table");
-      // add some classes to make the table look better
-      // $(this).addClass('table-sm');
-      $(this).addClass("table-hover");
+    // only select tables that are not inside an element with "news", "card", or "archive" class, or inside <code>
+    var parent = table.parentElement;
+    var skip = false;
+    while (parent) {
+      if (parent.tagName === "CODE") { skip = true; break; }
+      if (parent.className && (
+        parent.className.indexOf("news") !== -1 ||
+        parent.className.indexOf("card") !== -1 ||
+        parent.className.indexOf("archive") !== -1
+      )) { skip = true; break; }
+      parent = parent.parentElement;
+    }
+
+    if (!skip) {
+      table.setAttribute("data-toggle", "table");
+      table.classList.add("table-hover");
     }
   });
 });
