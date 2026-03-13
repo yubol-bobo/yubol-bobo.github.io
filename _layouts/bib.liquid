@@ -1,6 +1,6 @@
 ---
 ---
-<div class="row animate-on-scroll">
+<div class="row animate-on-scroll" data-category="{{ entry.category | default: 'other' }}">
   {% if site.enable_publication_thumbnails %}
     <div class="col col-sm-2 abbr">
       {%- if entry.abbr -%}

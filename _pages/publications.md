@@ -540,6 +540,11 @@ cv_pdf: Resume_Yubo_2026.pdf
   <div style="flex: 1; min-width: 200px;">
     {% include bib_search.liquid %}
   </div>
+  <div class="bib-category-filters" style="display: flex; gap: 0.4rem; align-items: center;">
+    <button class="bib-category-btn active" data-category="all">All</button>
+    <button class="bib-category-btn" data-category="llms">LLMs</button>
+    <button class="bib-category-btn" data-category="healthcare">Healthcare</button>
+  </div>
   <div style="min-width: 150px;">
     <label for="bibsort" style="margin-right: 0.5rem; font-size: 0.9rem;">Sort by:</label>
     <select id="bibsort" class="bibsort-dropdown" style="padding: 0.4rem 0.8rem; border: 1px solid var(--global-divider-color); border-radius: 4px; background-color: var(--global-bg-color); color: var(--global-text-color); cursor: pointer; font-size: 0.9rem;">
@@ -722,6 +727,47 @@ document.addEventListener('DOMContentLoaded', function() {
       const event = new Event('change');
       bibsortDropdown.dispatchEvent(event);
     }
+  }
+
+  // ---- Category filter buttons ----
+  var categoryBtns = document.querySelectorAll('.bib-category-btn');
+  if (categoryBtns.length) {
+    categoryBtns.forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        // Update active state
+        categoryBtns.forEach(function(b) { b.classList.remove('active'); });
+        this.classList.add('active');
+
+        var cat = this.getAttribute('data-category');
+        var pubs = document.querySelector('.publications');
+        if (!pubs) return;
+
+        // Filter list items
+        var items = pubs.querySelectorAll('ol.bibliography > li');
+        items.forEach(function(li) {
+          var row = li.querySelector('.row[data-category]');
+          var itemCat = row ? row.getAttribute('data-category') : 'other';
+          if (cat === 'all' || itemCat === cat) {
+            li.style.display = '';
+            li.classList.remove('unloaded');
+          } else {
+            li.style.display = 'none';
+            li.classList.add('unloaded');
+          }
+        });
+
+        // Hide empty year sections
+        var yearHeadings = pubs.querySelectorAll('h2.bibliography');
+        yearHeadings.forEach(function(h2) {
+          var ol = h2.nextElementSibling;
+          if (ol && ol.tagName === 'OL') {
+            var visibleItems = ol.querySelectorAll('li:not(.unloaded)');
+            h2.style.display = visibleItems.length ? '' : 'none';
+            ol.style.display = visibleItems.length ? '' : 'none';
+          }
+        });
+      });
+    });
   }
 });
 </script>
