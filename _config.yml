@@ -463,7 +463,7 @@ third_party_libraries:
     version: "5.5.0"
   google_fonts:
     url:
-      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Playfair+Display:400,600,700,800|Cormorant+Garamond:400,500,600&display=swap"
+      fonts: "https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Playfair+Display:400,600,700,800|Cormorant+Garamond:400,500,600|Dancing+Script:700&display=swap"
   highlightjs:
     integrity:
       css:
