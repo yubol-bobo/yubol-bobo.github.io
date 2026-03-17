@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "jekyll-dev",
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["/Users/bobo/.claude/jekyll-serve.sh"],
+      "port": 4000
+    }
+  ]
+}
