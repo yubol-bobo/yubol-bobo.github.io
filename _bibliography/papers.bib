@@ -7,15 +7,15 @@
   category={llms},
   abbr={Preprint},
   title={SkillsBench: Benchmarking How Well Agent Skills Work Across Diverse Tasks},
-  author={Li*, Xiangyi and Liu*, Yimin and Chen*, Wenbo and Zheng*, Shenghan and Chen, Xiaokun and He, Yifeng and Li, Yubo and You, Bingran and Shen, Haotian and Sun, Jiankai and Wang, Shuyi and Li, Binxu and Zeng, Qunhong and Wang, Di and Zhao, Xuandong and Wang, Yuanli and Ben Chaim, Roey and Di, Zonglin and Gao, Yipeng and He, Junwei and He, Yizhuo and Jing, Liqiang and Kong, Luyang and Lan, Xin and Li, Jiachen and Li, Songlin and Li, Yijiang and Lin, Yueqian and Liu, Xinyi and Liu, Xuanqing and Lyu, Haoran and Ma, Ze and Li, Kaixin and Wang, Runhui and Wang, Tianyu and Ye, Wengao and Zhang, Yue and Xing, Hanwen and Li, Kaixin and Xue, Yiqi and Dillmann, Steven and Lee, Han-chung},
+  author={Li, Xiangyi and Liu, Yimin and Chen, Wenbo and Zheng, Shenghan and Chen, Xiaokun and He, Yifeng and Li, Yubo and You, Bingran and Shen, Haotian and Sun, Jiankai and Wang, Shuyi and Li, Binxu and Zeng, Qunhong and Wang, Di and Zhao, Xuandong and Wang, Yuanli and Ben Chaim, Roey and Di, Zonglin and Gao, Yipeng and He, Junwei and He, Yizhuo and Jing, Liqiang and Kong, Luyang and Lan, Xin and Li, Jiachen and Li, Songlin and Li, Yijiang and Lin, Yueqian and Liu, Xinyi and Liu, Xuanqing and Lyu, Haoran and Ma, Ze and Li, Kaixin and Wang, Runhui and Wang, Tianyu and Ye, Wengao and Zhang, Yue and Xing, Hanwen and Li, Kaixin and Xue, Yiqi and Dillmann, Steven and Lee, Han-chung},
   journal={arXiv preprint arXiv:2602.12670},
   year={2026},
   month={March},
   selected={true},
   preview={skillsbench.png},
   pdf={SkillsBench.pdf},
-  url={https://arxiv.org/abs/2602.12670},
-  html={https://www.skillsbench.ai/},
+  arxiv={https://arxiv.org/abs/2602.12670},
+  page={https://www.skillsbench.ai/},
   abstract={Agent Skills are structured packages of procedural knowledge that augment LLM agents at inference time. Despite rapid adoption, there is no standard way to measure whether they actually help. We present SkillsBench, a benchmark of 86 tasks across 11 domains paired with curated Skills and deterministic verifiers. Each task is evaluated under three conditions: no Skills, curated Skills, and self-generated Skills. We test 7 agent-model configurations over 7,308 trajectories. Curated Skills raise average pass rate by 16.2 percentage points (pp), but effects vary widely by domain (+4.5pp for Software Engineering to +51.9pp for Healthcare) and 16 of 84 tasks show negative deltas. Self-generated Skills provide no benefit on average, showing that models cannot reliably author the procedural knowledge they benefit from consuming. Focused Skills with 2-3 modules outperform comprehensive documentation, and smaller models with Skills can match larger models without them. We publish the dataset and evaluation harness to assist developers and researchers in future work at skillsbench.ai.}
 }
 
@@ -30,7 +30,7 @@
   selected={false},
   preview={radar_lrm.png},
   pdf={lrm.pdf},
-  doi={https://arxiv.org/abs/2602.13093},
+  arxiv={https://arxiv.org/abs/2602.13093},
   abstract={Large reasoning models with reasoning capabilities achieve state-of-the-art performance on complex tasks, but their robustness under multi-turn adversarial pressure remains underexplored. We evaluate nine frontier reasoning models under adversarial attacks. Our findings reveal that reasoning confers meaningful but incomplete robustness: most reasoning models studied significantly outperform instruction-tuned baselines, yet all exhibit distinct vulnerability profiles, with misleading suggestions universally effective and social pressure showing model-specific efficacy. Through trajectory analysis, we identify five failure modes (Self-Doubt, Social Conformity, Suggestion Hijacking, Emotional Susceptibility, and Reasoning Fatigue) with the first two accounting for 50% of failures. We further demonstrate that Confidence-Aware Response Generation (CARG), effective for standard LLMs, fails for reasoning models due to overconfidence induced by extended reasoning traces; counterintuitively, random confidence embedding outperforms targeted extraction. Our results highlight that reasoning capabilities do not automatically confer adversarial robustness and that confidence-based defenses require fundamental redesign for reasoning models.}
 }
 
@@ -57,9 +57,8 @@
   journal={arXiv preprint arXiv:2509.12179},
   year={2025},
   month={September},
-  url={https://openreview.net/forum?id=G5jK2OMT2q#discussion},
-  doi={10.48550/arXiv.2509.12179},
-  html={https://openreview.net/forum?id=G5jK2OMT2q#discussion},
+  arxiv={https://arxiv.org/abs/2509.12179},
+  openreview={https://openreview.net/forum?id=G5jK2OMT2q#discussion},
   pdf={co_alignment.pdf},
   preview={a4s.png},
   abstract={Current AI alignment through RLHF follows a single directional paradigm that AI conforms to human preferences while treating human cognition as fixed. We propose a shift to co-alignment through Bidirectional Cognitive Alignment (BiCA), where humans and AI mutually adapt. BiCA uses learnable protocols, representation mapping, and KL-budget constraints for controlled co-evolution. In collaborative navigation, BiCA achieved 85.5% success versus 70.3% baseline, with 230% better mutual adaptation and 332% better protocol convergence.}
@@ -74,8 +73,8 @@
   selected={true},
   year={2026},
   month={January},
-  url={https://openreview.net/forum?id=88C7vSdn0t},
-  doi={10.48550/arXiv.2510.02712},
+  arxiv={https://arxiv.org/abs/2510.02712},
+  openreview={https://openreview.net/forum?id=88C7vSdn0t},
   preview={survival.png},
   pdf={time_to_c.pdf},
   abstract={Large Language Models (LLMs) have revolutionized conversational AI, yet their robustness in extended multi-turn dialogues remains poorly understood. Existing evaluation frameworks focus on static benchmarks and single-turn assessments, failing to capture the temporal dynamics of conversational degradation that characterize real-world interactions. In this work, we present the first comprehensive survival analysis of conversational AI robustness, analyzing 36,951 conversation turns across 9 state-of-the-art LLMs to model failure as a time-to-event process.}
@@ -89,8 +88,7 @@
   journal={arXiv preprint arXiv:2510.09895},
   year={2025},
   month={October},
-  url={https://arxiv.org/abs/2510.09895},
-  doi={10.48550/arXiv.2510.09895},
+  arxiv={https://arxiv.org/abs/2510.09895},
   preview={coi.png},
   pdf={coi.pdf},
   abstract={Modeling clinical time-series data is hampered by the challenge of capturing latent, time-varying dependencies among features. State-of-the-art approaches often rely on black-box mechanisms or simple aggregation, failing to explicitly model how the influence of one clinical variable propagates through others over time. We propose Chain-of-Influence (CoI), an interpretable deep learning framework that constructs an explicit, time-unfolded graph of feature interactions.}
@@ -105,7 +103,8 @@
   year={2025},
   month={March},
   selected={false},
-  url={https://arxiv.org/abs/2503.19285},
+  arxiv={https://arxiv.org/abs/2503.19285},
+  doi={https://pmc.ncbi.nlm.nih.gov/articles/PMC12919459/},
   preview={no_black.png},
   abstract={Despite the outstanding performance of deep learning models in clinical prediction tasks, explainability remains a significant challenge. Inspired by transformer architectures, we introduce the Temporal-Feature Cross Attention Mechanism (TFCAM), a novel deep learning framework designed to capture dynamic interactions among clinical features across time, enhancing both predictive accuracy and interpretability. In an experiment with 1,422 patients with Chronic Kidney Disease, predicting progression to End-Stage Renal Disease, TFCAM outperformed LSTM and RETAIN baselines, achieving an AUROC of 0.95 and an F1-score of 0.69. Beyond performance gains, TFCAM provides multi-level explainability by identifying critical temporal periods, ranking feature importance, and quantifying how features influence each other across time before affecting predictions. Our approach addresses the "black box" limitations of deep learning in healthcare, offering clinicians transparent insights into disease progression mechanisms while maintaining state-of-the-art predictive performance.}
 }
@@ -155,7 +154,7 @@
   pages={664--673},
   pmid={40417492},
   pmcid={PMC12099416},
-  html={https://pmc.ncbi.nlm.nih.gov/articles/PMC12099416/},
+  doi={https://pmc.ncbi.nlm.nih.gov/articles/PMC12099416/},
   pdf={towards.pdf},
   preview={towards.png},
   abstract={This study explores the potential of utilizing administrative claims data, combined with advanced machine learning and deep learning techniques, to predict the progression of Chronic Kidney Disease (CKD) to End-Stage Renal Disease (ESRD). We analyze a comprehensive, 10-year dataset provided by a major health insurance organization to develop prediction models for multiple observation windows using traditional machine learning methods such as Random Forest and XGBoost as well as deep learning approaches such as Long Short-Term Memory (LSTM) networks.}
@@ -169,7 +168,7 @@
   journal={arXiv preprint arXiv:2504.04717},
   year={2025},
   month={April},
-  doi = {10.48550/arXiv.2504.04717},
+  arxiv = {https://arxiv.org/abs/2504.04717},
   code = {https://github.com/yubol-bobo/Awesome-Multi-Turn-LLMs},
   pdf = {beyond.pdf},
   selected={true},

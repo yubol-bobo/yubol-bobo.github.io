@@ -197,10 +197,16 @@
         <a href="https://doi.org/{{ entry.doi }}" class="btn btn-sm z-depth-0" role="button">DOI</a>
       {% endif %}
       {% if entry.arxiv %}
-        <a href="http://arxiv.org/abs/{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
+        <a href="{{ entry.arxiv }}" class="btn btn-sm z-depth-0" role="button">arXiv</a>
+      {% endif %}
+      {% if entry.openreview %}
+        <a href="{{ entry.openreview }}" class="btn btn-sm z-depth-0" role="button">OpenReview</a>
       {% endif %}
       {% if entry.bibtex_show %}
         <a class="bibtex btn btn-sm z-depth-0" role="button">Bib</a>
+      {% endif %}
+      {% if entry.page %}
+        <a href="{{ entry.page }}" class="btn btn-sm z-depth-0" role="button">Page</a>
       {% endif %}
       {% if entry.html %}
         {% if entry.html contains '://' %}
