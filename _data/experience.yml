@@ -1,0 +1,41 @@
+# Work experience — rendered by _includes/experience.liquid as an animated vertical timeline.
+# Order: newest first. Add entries above this line as you accumulate more roles.
+#
+# Field reference:
+#   role         (required) job title
+#   company      (required) organization name
+#   location     (optional) city / remote tag
+#   start        (required) YYYY.MM or free-form string
+#   end          (required) YYYY.MM, "present", or free-form string
+#   dates        (optional) pre-formatted display string (overrides start/end)
+#   project      (optional) project name / tagline shown under the role
+#   team         (optional) team name shown under the project
+#   upcoming     (optional) true → shows an "UPCOMING" badge next to the dates
+#   bullets      (optional) list of short impact bullets
+#   logo         (optional) path under assets/img/ (e.g. logos/amazon.svg)
+#   color        (optional) accent colour (hex) used for the node + border + badge
+#   link         (optional) external URL wrapping the company name
+
+- role: ML Research Scientist Intern
+  company: Netflix
+  start: "2026.06"
+  end: "2026.08"
+  dates: Jun 2026 – Aug 2026
+  upcoming: true
+  team: Foundation Model team
+  color: "#E50914"              # Netflix red
+  logo: logos/netflix.svg
+  link: https://research.netflix.com/
+  bullets: []
+
+- role: Applied Scientist Intern
+  company: Amazon
+  start: "2025.06"
+  end: "2025.08"
+  dates: Jun 2025 – Aug 2025
+  project: Generative Recommendation Systems
+  team: Customer Behavior Analytics
+  color: "#FF9900"
+  logo: logos/amazon.svg
+  link: https://www.amazon.science/
+  bullets: []

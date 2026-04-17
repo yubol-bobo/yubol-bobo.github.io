@@ -1,0 +1,62 @@
+{%- comment -%}
+  Animated vertical timeline for the "Experience" section.
+  Data source: _data/experience.yml
+  Styles:      _sass/_experience.scss
+{%- endcomment -%}
+
+<div class="xp-timeline">
+  <ol class="xp-list">
+    {% for exp in site.data.experience %}
+      {% assign accent = exp.color | default: '#9333ea' %}
+      <li class="xp-item animate-on-scroll" style="--xp-accent: {{ accent }};">
+        <div class="xp-node" aria-hidden="true"></div>
+
+        <article class="xp-card {% if exp.logo %}xp-card--has-logo{% endif %}">
+          {% if exp.logo %}
+            <div class="xp-logo-col">
+              <img class="xp-logo" src="{{ exp.logo | prepend: '/assets/img/' | relative_url }}" alt="{{ exp.company }} logo">
+            </div>
+          {% endif %}
+
+          <div class="xp-content-col">
+            <header class="xp-card__header">
+              <time class="xp-dates">
+                {% if exp.dates %}
+                  {{ exp.dates }}
+                {% else %}
+                  {{ exp.start }} – {{ exp.end }}
+                {% endif %}
+              </time>
+              {% if exp.upcoming %}<span class="xp-badge xp-badge--upcoming">Upcoming</span>{% endif %}
+              {% if exp.location %}<span class="xp-location">{{ exp.location }}</span>{% endif %}
+            </header>
+
+            <h3 class="xp-role">
+              {{ exp.role }}<span class="xp-at"> @ </span>{% if exp.link %}<a class="xp-company" href="{{ exp.link }}" target="_blank" rel="noopener">{{ exp.company }}</a>{% else %}<span class="xp-company">{{ exp.company }}</span>{% endif %}
+            </h3>
+
+            {% if exp.project %}
+              <p class="xp-project">
+                <span class="xp-meta-label">Project</span>{{ exp.project }}
+              </p>
+            {% endif %}
+
+            {% if exp.team %}
+              <p class="xp-team">
+                <span class="xp-meta-label">Team</span>{{ exp.team }}
+              </p>
+            {% endif %}
+
+            {% if exp.bullets and exp.bullets.size > 0 %}
+              <ul class="xp-bullets">
+                {% for b in exp.bullets %}
+                  <li>{{ b }}</li>
+                {% endfor %}
+              </ul>
+            {% endif %}
+          </div>
+        </article>
+      </li>
+    {% endfor %}
+  </ol>
+</div>

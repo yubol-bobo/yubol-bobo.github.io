@@ -1,0 +1,403 @@
+// Animated vertical timeline for the "Experience" section.
+// Rendered by _includes/experience.liquid from _data/experience.yml.
+//
+// NOTE: Jekyll's production Sass minifier strips whitespace from `calc(...)`
+// expressions (same bug that broke the coverflow). This file intentionally
+// avoids `calc()` — all values are plain literals or CSS custom properties.
+
+// ---- Root container ---------------------------------------------------------
+.xp-timeline {
+  --xp-accent-default: var(--global-theme-color, #9333ea);
+
+  position: relative;
+  max-width: 960px;
+  margin: 1.5rem auto 0;
+  padding: 0.25rem 0 1.5rem;
+}
+
+// Central rail
+.xp-timeline::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--global-divider-color, rgba(0, 0, 0, 0.1)) 6%,
+    var(--global-divider-color, rgba(0, 0, 0, 0.1)) 94%,
+    transparent 100%
+  );
+  pointer-events: none;
+  z-index: 0;
+}
+
+// ---- List / items -----------------------------------------------------------
+.xp-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.xp-item {
+  position: relative;
+  box-sizing: border-box;
+  width: 50%;
+  padding: 1rem 0;
+  margin-bottom: 0.25rem;
+}
+
+.xp-item:nth-child(odd) {
+  padding-right: 2.5rem;
+}
+
+.xp-item:nth-child(even) {
+  margin-left: 50%;
+  padding-left: 2.5rem;
+}
+
+// ---- Node (small coloured dot on the rail) ---------------------------------
+.xp-node {
+  position: absolute;
+  top: 1.75rem;
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  background: var(--xp-accent, var(--xp-accent-default));
+  box-shadow:
+    0 0 0 3px var(--global-bg-color, #fff),
+    0 0 0 5px var(--xp-accent, var(--xp-accent-default)),
+    0 4px 10px rgba(0, 0, 0, 0.15);
+  z-index: 2;
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+// Half of 1rem = 0.5rem → dot centers on the rail (parent's 50% edge).
+.xp-item:nth-child(odd) .xp-node {
+  right: -0.5rem;
+}
+.xp-item:nth-child(even) .xp-node {
+  left: -0.5rem;
+}
+
+// ---- Card -------------------------------------------------------------------
+.xp-card {
+  position: relative;
+  background: var(--global-card-bg-color, #fff);
+  border-radius: 12px;
+  padding: 1rem 1.25rem 1.1rem;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-align: left;
+}
+
+.xp-item:nth-child(odd) .xp-card {
+  border-right: 4px solid var(--xp-accent, var(--xp-accent-default));
+}
+.xp-item:nth-child(even) .xp-card {
+  border-left: 4px solid var(--xp-accent, var(--xp-accent-default));
+}
+
+.xp-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12), 0 3px 6px rgba(0, 0, 0, 0.06);
+}
+
+// Triangular connector pointing to the rail
+.xp-card::before {
+  content: "";
+  position: absolute;
+  top: 1.6rem;
+  width: 12px;
+  height: 12px;
+  background: var(--global-card-bg-color, #fff);
+  transform: rotate(45deg);
+}
+.xp-item:nth-child(odd) .xp-card::before {
+  right: -6px;
+  box-shadow: 2px -2px 3px rgba(0, 0, 0, 0.04);
+}
+.xp-item:nth-child(even) .xp-card::before {
+  left: -6px;
+  box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.04);
+}
+
+// ---- Two-column layout: logo (1/5) | content (4/5) ------------------------
+.xp-card--has-logo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.xp-logo-col {
+  flex: 0 0 20%;        // 1/5 of the card width
+  min-width: 64px;
+  max-width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.25rem 0;
+}
+
+.xp-logo {
+  width: 100%;
+  height: auto;
+  max-height: 72px;
+  object-fit: contain;
+  display: block;
+}
+
+.xp-content-col {
+  flex: 1 1 auto;
+  min-width: 0;         // allow inner text to wrap correctly in flex
+}
+
+// ---- Card content ----------------------------------------------------------
+.xp-card__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 0.75rem;
+  margin-bottom: 0.35rem;
+}
+
+.xp-dates {
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--xp-accent, var(--xp-accent-default));
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  background: rgba(var(--global-theme-color-rgb, 147, 51, 234), 0.08);
+}
+
+.xp-location {
+  font-size: 0.8rem;
+  color: var(--global-text-color-light, #828282);
+}
+.xp-location::before {
+  content: "·";
+  opacity: 0.7;
+  margin-right: 0.3rem;
+}
+
+.xp-role {
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.3;
+  margin: 0.1rem 0 0.25rem;
+  color: var(--global-text-color, #000);
+}
+
+.xp-at {
+  font-weight: 400;
+  color: var(--global-text-color-light, #828282);
+}
+
+.xp-company {
+  color: var(--global-text-color, #000);
+  font-weight: 700;
+}
+a.xp-company:hover {
+  color: var(--xp-accent, var(--xp-accent-default));
+  text-decoration: none;
+}
+
+.xp-project,
+.xp-team {
+  margin: 0.2rem 0 0;
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--global-text-color, #000);
+}
+
+.xp-project + .xp-team {
+  margin-top: 0.1rem;
+}
+
+.xp-meta-label {
+  display: inline-block;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--xp-accent, var(--xp-accent-default));
+  margin-right: 0.5rem;
+  opacity: 0.9;
+  // slim vertical bar after the label to separate from value
+  &::after {
+    content: "";
+    display: inline-block;
+    width: 1px;
+    height: 0.7em;
+    background: currentColor;
+    margin-left: 0.5rem;
+    vertical-align: -0.08em;
+    opacity: 0.5;
+  }
+}
+
+// "Upcoming" pill that sits beside the dates chip in the header
+.xp-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.xp-badge--upcoming {
+  color: #0f6d3a;
+  background: #d6f5e1;
+  border: 1px solid #8fdca8;
+
+  // small animated dot
+  &::before {
+    content: "";
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #16a34a;
+    box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.6);
+    animation: xp-badge-pulse 2s ease-out infinite;
+  }
+}
+
+html[data-theme="dark"] .xp-badge--upcoming {
+  color: #b7f5ca;
+  background: rgba(22, 163, 74, 0.18);
+  border-color: rgba(22, 163, 74, 0.55);
+}
+
+@keyframes xp-badge-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.55); }
+  70%  { box-shadow: 0 0 0 8px rgba(22, 163, 74, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xp-badge--upcoming::before {
+    animation: none;
+  }
+}
+
+.xp-bullets {
+  margin: 0.35rem 0 0;
+  padding-left: 1.1rem;
+  color: var(--global-text-color, #000);
+}
+.xp-bullets li {
+  margin: 0.15rem 0;
+  font-size: 0.92rem;
+  line-height: 1.55;
+}
+.xp-bullets li::marker {
+  color: var(--xp-accent, var(--xp-accent-default));
+}
+
+// ---- Directional slide-in (override generic .animate-on-scroll) ------------
+.xp-item.animate-on-scroll {
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.xp-item:nth-child(odd).animate-on-scroll {
+  transform: translateX(-28px);
+}
+.xp-item:nth-child(even).animate-on-scroll {
+  transform: translateX(28px);
+}
+.xp-item.animate-on-scroll.visible {
+  transform: translateX(0);
+}
+
+// Subtle "pop" on the dot when it first becomes visible
+@keyframes xp-dot-pop {
+  0%   { transform: scale(0.2); opacity: 0; }
+  60%  { transform: scale(1.25); opacity: 1; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.xp-item.animate-on-scroll.visible .xp-node {
+  animation: xp-dot-pop 0.6s cubic-bezier(0.2, 0.7, 0.2, 1.3) 0.1s 1 both;
+}
+
+// ---- Mobile: single column, rail on the left ------------------------------
+@media (max-width: 768px) {
+  .xp-timeline::before {
+    left: 1.25rem;
+    margin-left: 0;
+  }
+
+  .xp-item {
+    width: 100%;
+  }
+
+  .xp-item:nth-child(odd),
+  .xp-item:nth-child(even) {
+    margin-left: 0;
+    padding: 0.75rem 0 0.75rem 2.75rem;
+  }
+
+  .xp-item:nth-child(odd) .xp-node,
+  .xp-item:nth-child(even) .xp-node {
+    left: 0.75rem;   // rail is at 1.25rem; node is 1rem wide → centered
+    right: auto;
+  }
+
+  .xp-item:nth-child(odd) .xp-card,
+  .xp-item:nth-child(even) .xp-card {
+    border-right: none;
+    border-left: 4px solid var(--xp-accent, var(--xp-accent-default));
+  }
+
+  .xp-item:nth-child(odd) .xp-card::before,
+  .xp-item:nth-child(even) .xp-card::before {
+    left: -6px;
+    right: auto;
+    box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.04);
+  }
+
+  .xp-item:nth-child(odd).animate-on-scroll,
+  .xp-item:nth-child(even).animate-on-scroll {
+    transform: translateX(16px);
+  }
+  .xp-item.animate-on-scroll.visible {
+    transform: translateX(0);
+  }
+}
+
+// ---- Dark mode polish ------------------------------------------------------
+html[data-theme="dark"] .xp-card,
+html[data-theme="dark"] .xp-node {
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.45),
+    0 1px 2px rgba(0, 0, 0, 0.3);
+}
+html[data-theme="dark"] .xp-card:hover {
+  box-shadow:
+    0 12px 28px rgba(0, 0, 0, 0.55),
+    0 3px 6px rgba(0, 0, 0, 0.35);
+}
+
+// ---- Reduced motion --------------------------------------------------------
+@media (prefers-reduced-motion: reduce) {
+  .xp-item.animate-on-scroll,
+  .xp-item:nth-child(odd).animate-on-scroll,
+  .xp-item:nth-child(even).animate-on-scroll {
+    transform: none;
+    transition: none;
+  }
+  .xp-item.animate-on-scroll.visible .xp-node {
+    animation: none;
+  }
+}

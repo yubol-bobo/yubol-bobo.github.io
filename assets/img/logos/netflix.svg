@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Netflix">
+  <!-- Netflix "N" — three red strokes (left pillar, diagonal slash, right pillar) -->
+  <g fill="#E50914">
+    <rect x="14" y="10" width="16" height="80"/>
+    <rect x="70" y="10" width="16" height="80"/>
+    <polygon points="14,10 30,10 86,90 70,90"/>
+  </g>
+</svg>
