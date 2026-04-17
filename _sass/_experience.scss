@@ -127,11 +127,18 @@
   box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.04);
 }
 
-// ---- Two-column layout: logo (1/5) | content (4/5) ------------------------
+// ---- Two-column layout: logo (1/5) + content (4/5) ------------------------
+// Logo sits on the OUTER side of the timeline:
+//   - odd rows (card on the left of rail)  → logo on the left  (default)
+//   - even rows (card on the right of rail) → logo on the right (row-reverse)
 .xp-card--has-logo {
   display: flex;
   align-items: center;
   gap: 1rem;
+}
+
+.xp-item:nth-child(even) .xp-card--has-logo {
+  flex-direction: row-reverse;
 }
 
 .xp-logo-col {
@@ -373,6 +380,13 @@ html[data-theme="dark"] .xp-badge--upcoming {
   }
   .xp-item.animate-on-scroll.visible {
     transform: translateX(0);
+  }
+
+  // Mobile: the rail is on the LEFT, so every card sits on the right of it.
+  // Keep the logo on the outer (right) side for all rows.
+  .xp-item:nth-child(odd) .xp-card--has-logo,
+  .xp-item:nth-child(even) .xp-card--has-logo {
+    flex-direction: row-reverse;
   }
 }
 
