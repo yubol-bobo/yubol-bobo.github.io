@@ -5,6 +5,12 @@
 .publications-coverflow {
   --cf-card-w: 360px;
   --cf-card-h: 480px;
+  // NOTE: Stage height is hard-wired instead of computed via calc() because
+  // Jekyll's production Sass minifier strips the whitespace around `+` inside
+  // calc(), producing invalid `calc(480px+80px)` that evaluates to 0 and
+  // collapses the whole carousel on GitHub Pages. Keep --cf-stage-h in sync
+  // with --cf-card-h (+ 80px vertical padding).
+  --cf-stage-h: 560px;
   --cf-perspective: 1500px;
   --cf-glow: rgba(var(--global-theme-color-rgb), 0.55);
 
@@ -18,11 +24,7 @@
   .coverflow-stage {
     position: relative;
     width: 100%;
-    // NOTE: Use Sass string interpolation so the compressed (production) build
-    // does NOT strip the whitespace around the `+`. CSS spec requires spaces
-    // around `+` inside calc(); without them the expression evaluates to 0,
-    // collapsing the stage and clipping all cards on GitHub Pages.
-    height: #{"calc(var(--cf-card-h) + 80px)"};
+    height: var(--cf-stage-h);
     perspective: var(--cf-perspective);
     perspective-origin: 50% 50%;
     overflow: hidden;
@@ -467,11 +469,13 @@
   @media (max-width: 900px) {
     --cf-card-w: 300px;
     --cf-card-h: 460px;
+    --cf-stage-h: 540px; // keep in sync: card-h + 80
   }
 
   @media (max-width: 640px) {
     --cf-card-w: 260px;
     --cf-card-h: 440px;
+    --cf-stage-h: 520px; // keep in sync: card-h + 80
 
     .coverflow-arrow {
       width: 36px;
