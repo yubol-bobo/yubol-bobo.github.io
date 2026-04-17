@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Amazon">
+  <!-- Amazon "smile" arrow, in brand orange (#FF9900) -->
+  <g fill="#FF9900">
+    <!-- Curved smile (filled crescent) -->
+    <path d="M 12 44 C 26 70, 72 74, 88 50 L 82 46 C 68 66, 32 63, 18 43 Z"/>
+    <!-- Arrow tip at the right end, pointing up-right -->
+    <path d="M 80 34 L 97 42 L 82 59 Z"/>
+  </g>
+</svg>

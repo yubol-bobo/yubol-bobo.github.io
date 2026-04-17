@@ -96,8 +96,28 @@ layout: default
       </div>
     {% endif %}
 
-    <!-- Separator between Selected Publications and Awards -->
-    {% if page.selected_papers and page.awards and page.awards.enabled %}
+    {% assign xp_on = false %}
+    {% if page.experience and page.experience.enabled and site.data.experience and site.data.experience.size > 0 %}
+      {% assign xp_on = true %}
+    {% endif %}
+
+    <!-- Separator between Selected Publications and the next section (Experience or Awards) -->
+    {% if page.selected_papers and xp_on %}
+      <hr class="section-divider">
+    {% elsif page.selected_papers and page.awards and page.awards.enabled %}
+      <hr class="section-divider">
+    {% endif %}
+
+    <!-- Experience -->
+    {% if xp_on %}
+      <div class="animate-on-scroll">
+        <h2>💼 Work Experience</h2>
+        {% include experience.liquid %}
+      </div>
+    {% endif %}
+
+    <!-- Separator between Experience and Awards -->
+    {% if xp_on and page.awards and page.awards.enabled %}
       <hr class="section-divider">
     {% endif %}
 

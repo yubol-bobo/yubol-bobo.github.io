@@ -40,7 +40,9 @@
       "Bash(echo $?)",
       "mcp__Claude_Preview__preview_start",
       "Bash(chmod +x \"/Users/bobo/Library/CloudStorage/Dropbox/02. Research/Github/yubol-bobo.github.io/.claude/serve.sh\")",
-      "Bash(chmod +x /Users/bobo/.claude/jekyll-serve.sh)"
+      "Bash(chmod +x /Users/bobo/.claude/jekyll-serve.sh)",
+      "Bash(brew --version)",
+      "Bash(export PATH=\"/opt/homebrew/opt/ruby/bin:/opt/homebrew/lib/ruby/gems/4.0.0/bin:$PATH\")"
     ]
   }
 }
