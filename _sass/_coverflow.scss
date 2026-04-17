@@ -99,6 +99,18 @@
     overflow: hidden;
   }
 
+  // The bib layout wraps each entry in `<div class="row animate-on-scroll">`,
+  // which the site-wide scroll-animations.js hides until the IntersectionObserver
+  // flags it `.visible`. Inside the 3D coverflow the cards are absolutely
+  // positioned and translateZ'd, so the observer often never fires — cards
+  // render empty on a fresh page load (especially on GitHub Pages where the
+  // visitor lands at the top of the page). The carousel has its own entrance
+  // animation via `data-pos`, so neutralise the scroll-in animation here.
+  ol.bibliography > li .animate-on-scroll {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+
   // Override the Bootstrap .row layout inside the card so content stacks
   ol.bibliography > li > .row {
     display: flex;
