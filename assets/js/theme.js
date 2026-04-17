@@ -252,11 +252,13 @@ let transTheme = () => {
 };
 
 // Determine the expected state of the theme toggle, which can be "dark", "light", or
-// "system". Default is "system".
+// "system". Default is "dark" for every visitor regardless of OS preference — users
+// can still opt into light or system via the toggle in the navbar, but first-time
+// visitors always land in dark mode.
 let determineThemeSetting = () => {
   let themeSetting = localStorage.getItem("theme");
   if (themeSetting != "dark" && themeSetting != "light" && themeSetting != "system") {
-    themeSetting = "system";
+    themeSetting = "dark";
   }
   return themeSetting;
 };
