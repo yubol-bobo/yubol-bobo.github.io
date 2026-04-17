@@ -81,8 +81,23 @@ layout: default
       </div>
     {% endif %}
 
-    <!-- Separator between News and Awards -->
-    {% if page.announcements and page.announcements.enabled and page.awards and page.awards.enabled %}
+    <!-- Separator between News and Selected Publications -->
+    {% if page.announcements and page.announcements.enabled and page.selected_papers %}
+      <hr class="section-divider">
+    {% endif %}
+
+    <!-- Selected papers -->
+    {% if page.selected_papers %}
+      <div class="animate-on-scroll">
+        <h2>
+          <a href="{{ '/publications/' | relative_url }}" style="color: inherit">⭐ Selected publications</a>
+        </h2>
+        {% include selected_papers.liquid %}
+      </div>
+    {% endif %}
+
+    <!-- Separator between Selected Publications and Awards -->
+    {% if page.selected_papers and page.awards and page.awards.enabled %}
       <hr class="section-divider">
     {% endif %}
 
@@ -103,8 +118,8 @@ layout: default
       </div>
     {% endif %}
 
-    <!-- Separator between Awards and Selected Publications -->
-    {% if page.awards and page.awards.enabled and page.selected_papers %}
+    <!-- Separator between Awards and Latest posts -->
+    {% if page.awards and page.awards.enabled and page.latest_posts and page.latest_posts.enabled %}
       <hr class="section-divider">
     {% endif %}
 
@@ -115,16 +130,6 @@ layout: default
           <a href="{{ '/blog/' | relative_url }}" style="color: inherit">latest posts</a>
         </h2>
         {% include latest_posts.liquid %}
-      </div>
-    {% endif %}
-
-    <!-- Selected papers -->
-    {% if page.selected_papers %}
-      <div class="animate-on-scroll">
-        <h2>
-          <a href="{{ '/publications/' | relative_url }}" style="color: inherit">⭐ Selected publications</a>
-        </h2>
-        {% include selected_papers.liquid %}
       </div>
     {% endif %}
 

@@ -1,3 +1,19 @@
-<div class="publications">
-  {% bibliography --group_by none --query @*[selected=true]* %}
+<div class="publications publications-coverflow" aria-roledescription="carousel" aria-label="Selected publications">
+  <button type="button" class="coverflow-arrow coverflow-arrow--prev" aria-label="Previous publication">
+    <span aria-hidden="true">&#8249;</span>
+  </button>
+  <div class="coverflow-stage">
+    <div class="coverflow-glow" aria-hidden="true"></div>
+    <div class="coverflow-ghost" aria-hidden="true"></div>
+    <div class="coverflow-track">
+      {% bibliography --group_by none --query @*[selected=true]* %}
+    </div>
+  </div>
+  <button type="button" class="coverflow-arrow coverflow-arrow--next" aria-label="Next publication">
+    <span aria-hidden="true">&#8250;</span>
+  </button>
+  <div class="coverflow-info" aria-live="polite"></div>
+  <div class="coverflow-dots" role="tablist" aria-label="Choose publication"></div>
 </div>
+
+<script defer src="{{ '/assets/js/coverflow.js' | relative_url | bust_file_cache }}"></script>
