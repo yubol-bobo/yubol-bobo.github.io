@@ -915,7 +915,14 @@ footer.sticky-bottom {
           display: inline-block;
           background-color: var(--global-theme-color);
           margin-bottom: 0.5rem;
-          color: var(--global-card-bg-color) !important;
+          color: var(--global-card-bg-color);
+
+          // <span> wraps the label for venues without a URL (e.g. Preprint).
+          // Keep it inheriting so that the venue's inline text_color from
+          // bib.liquid propagates down in both light and dark mode.
+          span {
+            color: inherit;
+          }
 
           a {
             color: white;

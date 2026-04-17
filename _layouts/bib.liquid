@@ -5,9 +5,19 @@
     <div class="col col-sm-2 abbr">
       {%- if entry.abbr -%}
         {%- if site.data.venues[entry.abbr] -%}
-          {% assign venue_style = null %}
+          {% assign venue_style_inner = "" %}
           {% if site.data.venues[entry.abbr].color != blank %}
-            {% assign venue_style = site.data.venues[entry.abbr].color | prepend: 'style="background-color:' | append: '"' %}
+            {% assign venue_style_inner = venue_style_inner | append: "background-color:" | append: site.data.venues[entry.abbr].color | append: ";" %}
+          {% endif %}
+          {% if site.data.venues[entry.abbr].text_color != blank %}
+            {% assign venue_style_inner = venue_style_inner | append: "color:" | append: site.data.venues[entry.abbr].text_color | append: " !important;" %}
+          {% endif %}
+          {% if site.data.venues[entry.abbr].border != blank %}
+            {% assign venue_style_inner = venue_style_inner | append: "border:" | append: site.data.venues[entry.abbr].border | append: ";" %}
+          {% endif %}
+          {% assign venue_style = null %}
+          {% if venue_style_inner != "" %}
+            {% assign venue_style = venue_style_inner | prepend: 'style="' | append: '"' %}
           {%- endif -%}
           <abbr
             class="badge rounded w-100"
@@ -18,7 +28,7 @@
             {% if site.data.venues[entry.abbr].url %}
               <a href="{{ site.data.venues[entry.abbr].url }}">{{ entry.abbr }}</a>
             {% else %}
-              <div>{{- entry.abbr -}}</div>
+              <span>{{- entry.abbr -}}</span>
             {% endif %}
           </abbr>
         {% else %}

@@ -1,3 +1,57 @@
+# Preprint — white background with black text (readable in both light and dark mode)
+"Preprint":
+  color: "#ffffff"
+  text_color: "#000000"
+  border: "1px solid #cccccc"
+
+# Healthcare journals / venues — blues
+"AMIA":
+  url: https://www.amia.org/
+  color: "#1d4e89"
+
+"JAMIA":
+  url: https://academic.oup.com/jamia
+  color: "#003366"
+
+"ML4H":
+  url: https://ml4health.github.io/
+  color: "#4a90d9"
+
+# ML conferences — greens
+"NeurIPS":
+  url: https://neurips.cc/
+  color: "#2e7d32"
+
+"ICML":
+  url: https://icml.cc/
+  color: "#43a047"
+
+"ICLR":
+  url: https://iclr.cc/
+  color: "#66bb6a"
+
+# NLP conferences — reds
+"ACL":
+  url: https://www.aclweb.org/anthology/
+  color: "#8B0000"
+
+"EMNLP":
+  url: https://www.emnlp.org/
+  color: "#b71c1c"
+
+"NAACL":
+  url: https://naacl.org/
+  color: "#c62828"
+
+"COLM":
+  url: https://colmweb.org/
+  color: "#e53935"
+
+# Other venues
+"Agents4Science":
+  url: https://agents4science.stanford.edu/
+  color: "#FF8C00"
+
 "AJP":
   url: https://aapt.scitation.org/journal/ajp
   color: "#00369f"
@@ -7,23 +61,3 @@
 
 "Vision":
   color: "#009f36"
-
-"ACL":
-  url: https://www.aclweb.org/anthology/
-  color: "#8B0000"
-
-"AMIA":
-  url: https://www.amia.org/
-  color: "#1d4e89"
-
-"JAMIA":
-  url: https://academic.oup.com/jamia
-  color: "#003366"
-
-"arXiv":
-  url: https://arxiv.org/
-  color: "#006400"
-
-"Agents4Science":
-  url: https://agents4science.stanford.edu/
-  color: "#FF8C00"
