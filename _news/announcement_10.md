@@ -5,4 +5,4 @@ inline: true
 related_posts: false
 ---
 
-🎤 I am invited by <a href="https://pomsmeetings.org/conf-2026/">POMS 2026</a> to give a tutorial on LLM/AI Agent measurement science with Dr. Ramayya Krishnan and Dr. Rema Padman!🎉
+🎤 I am excited to host an invited tutorial on LLM/AI Agent measurement science at <a href="https://pomsmeetings.org/conf-2026/">POMS 2026</a> with Dr. Ramayya Krishnan and Dr. Rema Padman!🎉
