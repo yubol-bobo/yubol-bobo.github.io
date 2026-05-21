@@ -21,8 +21,8 @@
   start: "2026.06"
   end: "2026.08"
   dates: Jun 2026 – Aug 2026
-  upcoming: true
-  team: Foundation Model team
+  upcoming: false
+  team: AI Foundations
   color: "#E50914"              # Netflix red
   logo: logos/netflix.svg
   link: https://research.netflix.com/
