@@ -85,6 +85,10 @@ cv_pdf: Resume_Yubo.pdf
           colors.background.push('rgba(102, 51, 153, 0.7)');
           colors.border.push('rgba(102, 51, 153, 1)');
           colors.hover.push('rgba(102, 51, 153, 0.9)');
+        } else if (venue === 'COLM') {
+          colors.background.push('rgba(46, 204, 113, 0.7)');
+          colors.border.push('rgba(46, 204, 113, 1)');
+          colors.hover.push('rgba(46, 204, 113, 0.9)');
         } else if (venue === 'NeurIPS') {
           // Default color for NeurIPS in light theme
           colors.background.push('rgba(255, 159, 64, 0.7)');
@@ -182,6 +186,10 @@ cv_pdf: Resume_Yubo.pdf
       '2025': {
         bg: 'rgba(75, 192, 192, 0.7)',
         border: 'rgba(75, 192, 192, 1)'
+      },
+      '2026': {
+        bg: 'rgba(255, 159, 64, 0.7)',
+        border: 'rgba(255, 159, 64, 1)'
       }
     };
 
