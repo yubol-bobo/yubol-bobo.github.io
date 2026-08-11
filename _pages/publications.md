@@ -73,10 +73,18 @@ cv_pdf: Resume_Yubo.pdf
           colors.background.push('rgba(75, 192, 192, 0.7)');
           colors.border.push('rgba(75, 192, 192, 1)');
           colors.hover.push('rgba(75, 192, 192, 0.9)');
-        } else if (venue === 'ACL') {
+        } else if (venue === 'ARR') {
           colors.background.push('rgba(255, 206, 86, 0.7)');
           colors.border.push('rgba(255, 206, 86, 1)');
           colors.hover.push('rgba(255, 206, 86, 0.9)');
+        } else if (venue === 'AAAI') {
+          colors.background.push('rgba(52, 73, 94, 0.7)');
+          colors.border.push('rgba(52, 73, 94, 1)');
+          colors.hover.push('rgba(52, 73, 94, 0.9)');
+        } else if (venue === 'IEEE') {
+          colors.background.push('rgba(141, 110, 99, 0.7)');
+          colors.border.push('rgba(141, 110, 99, 1)');
+          colors.hover.push('rgba(141, 110, 99, 0.9)');
         } else if (venue === 'ICLR') {
           colors.background.push('rgba(153, 102, 255, 0.7)');
           colors.border.push('rgba(153, 102, 255, 1)');
@@ -111,9 +119,9 @@ cv_pdf: Resume_Yubo.pdf
       'Health Informatics': {
         '2025': 2
       },
-      'ACL': {
+      'ARR': {
         '2025': 8,
-        '2026': 4
+        '2026': 8
       },
       'ICLR': {
         '2025': 5
@@ -126,6 +134,12 @@ cv_pdf: Resume_Yubo.pdf
         '2026': 6
       },
       'COLM': {
+        '2026': 1
+      },
+      'AAAI': {
+        '2026': 4
+      },
+      'IEEE': {
         '2026': 1
       }
     };
