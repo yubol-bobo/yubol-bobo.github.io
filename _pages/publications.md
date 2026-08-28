@@ -81,10 +81,6 @@ cv_pdf: Resume_Yubo.pdf
           colors.background.push('rgba(52, 73, 94, 0.7)');
           colors.border.push('rgba(52, 73, 94, 1)');
           colors.hover.push('rgba(52, 73, 94, 0.9)');
-        } else if (venue === 'IEEE') {
-          colors.background.push('rgba(141, 110, 99, 0.7)');
-          colors.border.push('rgba(141, 110, 99, 1)');
-          colors.hover.push('rgba(141, 110, 99, 0.9)');
         } else if (venue === 'ICLR') {
           colors.background.push('rgba(153, 102, 255, 0.7)');
           colors.border.push('rgba(153, 102, 255, 1)');
@@ -138,9 +134,6 @@ cv_pdf: Resume_Yubo.pdf
       },
       'AAAI': {
         '2026': 4
-      },
-      'IEEE': {
-        '2026': 1
       }
     };
 
