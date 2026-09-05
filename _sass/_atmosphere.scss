@@ -28,12 +28,15 @@ body::before {
 
 // ---------- Dark mode: nebula glow ----------
 
+// Palette matched to the GPT-6 Astra hero: deep-blue ambient (#23435F)
+// with cyan/blue star tones and a faint warm-orange accent.
 html[data-theme="dark"] body::before {
   background:
-    radial-gradient(ellipse 700px 500px at 15% 20%, rgba(120, 40, 200, 0.13) 0%, transparent 70%),
-    radial-gradient(ellipse 600px 400px at 80% 75%, rgba(30, 80, 200, 0.11) 0%, transparent 70%),
-    radial-gradient(ellipse 500px 350px at 50% 45%, rgba(80, 20, 160, 0.07) 0%, transparent 60%),
-    radial-gradient(ellipse 300px 200px at 65% 30%, rgba(56, 189, 248, 0.05) 0%, transparent 60%);
+    radial-gradient(ellipse 700px 500px at 15% 20%, rgba(35, 67, 95, 0.34) 0%, transparent 70%),
+    radial-gradient(ellipse 600px 400px at 80% 75%, rgba(122, 177, 254, 0.09) 0%, transparent 70%),
+    radial-gradient(ellipse 500px 350px at 50% 45%, rgba(35, 67, 95, 0.22) 0%, transparent 60%),
+    radial-gradient(ellipse 340px 240px at 70% 22%, rgba(248, 121, 21, 0.05) 0%, transparent 60%),
+    radial-gradient(ellipse 300px 200px at 35% 70%, rgba(109, 203, 244, 0.06) 0%, transparent 60%);
   animation: nebula-drift 60s ease-in-out infinite alternate;
 }
 

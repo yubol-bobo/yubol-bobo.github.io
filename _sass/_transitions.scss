@@ -1,0 +1,78 @@
+/******************************************************************************
+ * Page-to-page transitions — Astra-style "converging into focus".
+ *
+ * Uses cross-document View Transitions (Chrome/Edge/Safari 18+): the old page
+ * blurs and lifts away while the new page sharpens into place. The navbar and
+ * the starfield canvas get their own view-transition-name so they stay
+ * visually continuous instead of blurring with the content.
+ * Browsers without support fall back to a simple entrance animation.
+ ******************************************************************************/
+
+// Opt in to animated same-origin navigations
+@view-transition {
+  navigation: auto;
+}
+
+@supports (view-transition-name: none) {
+  // Pin chrome elements: they cross-fade in place instead of blurring away
+  #navbar {
+    view-transition-name: site-navbar;
+  }
+  #starfield-canvas {
+    view-transition-name: site-starfield;
+  }
+
+  ::view-transition-old(root) {
+    animation: page-exit 0.28s cubic-bezier(0.4, 0, 1, 1) both;
+  }
+  ::view-transition-new(root) {
+    animation: page-enter 0.52s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+
+  // Background layers just cross-fade quickly — keeps the sky continuous
+  ::view-transition-old(site-starfield),
+  ::view-transition-new(site-starfield) {
+    animation-duration: 0.4s;
+  }
+}
+
+@keyframes page-exit {
+  to {
+    opacity: 0;
+    transform: translateY(-10px) scale(1.015);
+    filter: blur(8px);
+  }
+}
+
+@keyframes page-enter {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.985);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0);
+  }
+}
+
+// Fallback: browsers without view transitions still get an entrance
+@supports not (view-transition-name: none) {
+  div[role="main"] {
+    animation: page-enter 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  }
+}
+
+// Reduced motion: no page animations at all
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(root),
+  ::view-transition-new(root),
+  ::view-transition-old(site-starfield),
+  ::view-transition-new(site-starfield) {
+    animation: none !important;
+  }
+  div[role="main"] {
+    animation: none !important;
+  }
+}
