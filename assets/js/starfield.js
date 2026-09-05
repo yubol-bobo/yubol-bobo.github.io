@@ -552,9 +552,33 @@
     start();
   }
 
-  // Re-anchor the constellations once images/fonts have settled the layout
+  // Re-anchor the constellations once images/fonts have settled the layout.
+  // Only shift the existing slots — a full rebuild would re-randomize the
+  // star↔glyph pairing and make an already-formed word scatter and re-form.
+  function reanchorShapes() {
+    try {
+      for (var i = 0; i < shapes.length; i++) {
+        var sh = shapes[i];
+        if (!sh.el || !sh.el.getBoundingClientRect) continue;
+        var rect = sh.el.getBoundingClientRect();
+        var newY = rect.top + lastScrollY + rect.height / 2;
+        var dy = newY - sh.y;
+        if (!dy) continue;
+        sh.y = newY;
+        for (var j = 0; j < stars.length; j++) {
+          var slot = stars[j].slots[i];
+          if (slot) slot.y += dy;
+        }
+      }
+    } catch (e) {}
+  }
   window.addEventListener("load", function () {
-    if (stars) buildShapes();
+    if (!stars) return;
+    if (shapes.length) {
+      reanchorShapes();
+    } else {
+      buildShapes(); // shapes never built (e.g. fonts were not ready)
+    }
   });
 
   // Handle resize
