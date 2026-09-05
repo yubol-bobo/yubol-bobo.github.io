@@ -1,5 +1,14 @@
 {% for social in site.data.socials %}
   {% case social[0] %}
+    {% when 'resume_pdf' %}
+      <a
+        {% if social[1] contains '://' %}
+          href="{{ social[1] }}"
+        {% else %}
+          href="{{ social[1] | prepend: 'assets/pdf/' | relative_url }}"
+        {% endif %}
+        title="Resume" target="_blank" rel="noopener noreferrer"
+      ><i class="ai ai-cv"></i></a>
     {% when 'academia_edu' %}
       <a href="https://{{ social[1].organization }}.academia.edu/{{ social[1].username }}" title="Academia.edu"><i class="ai ai-academia"></i></a>
     {% when 'acm_id' %}
