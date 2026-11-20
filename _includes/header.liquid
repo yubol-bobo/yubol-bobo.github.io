@@ -5,7 +5,7 @@
       {% if site.enable_navbar_social %}
         <!-- Social Icons (all pages) -->
         <div class="navbar-brand social">{% include social.liquid %}</div>
-      {% elsif page.permalink != '/' %}
+      {% elsif page.permalink != '/about/' %}
         <a class="navbar-brand title font-weight-lighter" href="{{ site.baseurl }}/">
           {% if site.title == 'blank' %}
             {% if site.first_name %}
@@ -43,14 +43,39 @@
       <div class="collapse navbar-collapse text-right" id="navbarNav">
         <ul class="navbar-nav ml-auto flex-nowrap">
           {% for page in site.pages %}
-            {% if page.permalink == '/' %} {% assign about_title = page.title %} {% endif %}
+            {% if page.permalink == '/about/' %} {% assign about_title = page.title %} {% endif %}
           {% endfor %}
 
+          <!-- Back to the planet (the homepage), landing at the place that matches this page -->
+          {% assign planet_place = '' %}
+          {% if page.permalink == '/about/' %}
+            {% assign planet_place = '#home' %}
+          {% elsif page.permalink == '/publications/' %}
+            {% assign planet_place = '#research' %}
+          {% elsif page.permalink == '/news/' or page.layout == 'news' %}
+            {% assign planet_place = '#news' %}
+          {% elsif page.permalink == '/cv/' %}
+            {% assign planet_place = '#journey' %}
+          {% elsif page.permalink == '/teaching/' %}
+            {% assign planet_place = '#teaching' %}
+          {% elsif page.permalink == '/life/' %}
+            {% assign planet_place = '#life' %}
+          {% elsif page.permalink == '/contact/' %}
+            {% assign planet_place = '#contact' %}
+          {% elsif page.url contains '/blog/' %}
+            {% assign planet_place = '#blog' %}
+          {% endif %}
+          <li class="nav-item">
+            <a class="nav-link planet-link" href="{{ '/' | relative_url }}{{ planet_place }}" title="Back to the planet">
+              <i class="ti ti-planet"></i> Planet
+            </a>
+          </li>
+
           <!-- About -->
-          <li class="nav-item {% if page.permalink == '/' %}active{% endif %}">
-            <a class="nav-link" href="{{ '/' | relative_url }}">
+          <li class="nav-item {% if page.permalink == '/about/' %}active{% endif %}">
+            <a class="nav-link" href="{{ '/about/' | relative_url }}">
               {{- about_title }}
-              {% if page.permalink == '/' %}
+              {% if page.permalink == '/about/' %}
                 <span class="sr-only">(current)</span>
               {% endif %}
             </a>
