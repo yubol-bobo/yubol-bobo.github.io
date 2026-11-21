@@ -3,7 +3,7 @@ import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
 import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js';
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
-import { R, PLACES, placeById, heightAt, buildWorld, buildCharacter } from './world.js';
+import { R, PLACES, placeById, heightAt, buildWorld, buildCharacter, ringPoint, RING_AXES, STONE, STONE_FRONT, STONE_STAND, BOTTLE_STAND } from './world.js';
 import { PANELS, papers, venueOf, drawCityMap, SITE, CLASSIC } from './content.js';
 
 const $ = (s) => document.querySelector(s);
@@ -43,7 +43,7 @@ function start() {
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1200);
   scene.add(new THREE.HemisphereLight('#aab6ff', '#3a2f55', 0.55));
 
-  const { world, anim, pick, clouds, stars, constellations, skyCenter } = buildWorld();
+  const { world, anim, pick, clouds, stoneFace, stars, constellations, skyCenter } = buildWorld();
   scene.add(world);
   const hero = buildCharacter(); hero.position.y = R; hero.scale.setScalar(1.2); scene.add(hero);
   const heroLight = new THREE.PointLight('#ffe2b8', 2.2, 5, 1.5); heroLight.position.set(0, R + 1.6, 1.2); scene.add(heroLight);
@@ -60,6 +60,7 @@ function start() {
   };
   const CAM = {
     intro: { pos: new THREE.Vector3(0, R + 16, 60), look: new THREE.Vector3(0, 3, 0), fov: 42 },
+    ride: { pos: new THREE.Vector3(0, R + 5.4, 13.2), look: new THREE.Vector3(0, R + 1.5, 0), fov: 42 },
     play: { pos: new THREE.Vector3(0, R + 5.4, 13.2), look: new THREE.Vector3(0, R + 1.5, 0), fov: 42 },
     sky: { pos: new THREE.Vector3(0, R + 1.3, 7.5), look: new THREE.Vector3(), fov: 58 },
   };
@@ -147,6 +148,7 @@ function start() {
     if (S.mode === 'intro') { if (e.key === 'Enter' && document.activeElement === document.body) begin(); return; }
     if (KEYMAP[e.code] && !e.metaKey && !e.ctrlKey) {
       if (e.code.startsWith('Arrow') && S.open && panel.contains(document.activeElement) && document.activeElement !== $('#panel-close')) return;
+      if (S.mode === 'ride') hopOff();
       S.keys.add(e.code); e.preventDefault(); if (S.open) closePanel(true); S.travel = null;
     }
     if ((e.key === 'Enter' || e.key === 'e') && S.near && !S.open && (document.activeElement === document.body || document.activeElement === canvas)) visit(S.near.id);
@@ -168,13 +170,18 @@ function start() {
       const h = hitAt(e, stars);
       if (h) { const p = h.object.userData.paper; setHot(p.key, false); starTip.hidden = false; starTip.innerHTML = `<b>${p.title}</b><span>${venueOf(p)}, ${p.year}</span>`; starTip.style.transform = `translate(${Math.min(e.clientX + 16, innerWidth - 340)}px, ${e.clientY + 18}px)`; canvas.style.cursor = 'pointer'; }
       else { starTip.hidden = true; setHot(null); canvas.style.cursor = ''; }
-    } else if (S.mode === 'play') { const h = hitAt(e, pick); canvas.style.cursor = h && (h.object.userData.place || h.object.userData.rhino) ? 'pointer' : 'grab'; }
+    } else if (S.mode === 'play') { const h = hitAt(e, pick); canvas.style.cursor = h && (h.object.userData.place || h.object.userData.rhino || h.object.userData.egg) ? 'pointer' : 'grab'; }
   });
   const endDrag = (e) => {
     const d = S.drag; S.drag = null; if (!d || d.moved) return;
     if (S.mode === 'sky') { const h = hitAt(e, stars); if (h) setHot(null), setHot(h.object.userData.paper.key, true); return; }
+    if (S.mode === 'ride') return hopOff();
     if (S.mode !== 'play') return;
     const h = hitAt(e, pick); if (!h) return;
+    const egg = h.object.userData.egg;
+    if (egg === 'train') return boardTrain();
+    if (egg === 'stone') return travelTo(STONE_STAND, STONE_FRONT, pokeStone);
+    if (egg === 'bottle') { const say = () => toast('You rowed all the way out here. Say hi: <a href="mailto:yubol@andrew.cmu.edu">yubol@andrew.cmu.edu</a>'); if (playerLocal().angleTo(BOTTLE_STAND) < 0.02) say(); else travelTo(BOTTLE_STAND, null, say); return; }
     if (h.object.userData.place) return goTo(h.object.userData.place);
     if (h.object.userData.rhino) return toast('Dürer drew this rhinoceros in 1515 without ever seeing one. Europe believed the drawing for two centuries. I study the modern version of that problem.');
     const local = h.point.clone().sub(world.position).applyQuaternion(world.quaternion.clone().invert()).normalize();
@@ -185,7 +192,7 @@ function start() {
   function stepBy(ax, az) { // move the walker by (ax, az) radians along screen x / z
     const len = Math.hypot(ax, az); if (len < 1e-6) return;
     world.quaternion.premultiply(new THREE.Quaternion().setFromAxisAngle(new THREE.Vector3(-az / len, 0, ax / len), len)).normalize();
-    S.heading = Math.atan2(ax, az); S.walk = 1;
+    S.heading = Math.atan2(ax, az); S.walk = 1; S.lastStep = performance.now();
     if (!S.moved) { S.moved = true; $('#hint').classList.add('gone'); }
   }
 
@@ -200,7 +207,22 @@ function start() {
   $('#places-btn').addEventListener('click', () => { $('#places').hidden = !$('#places').hidden; });
   document.addEventListener('click', (e) => { const b = e.target.closest('[data-go]'); if (b) { closeReader(); goTo(b.dataset.go); } else if (!e.target.closest('#places,#places-btn')) $('#places').hidden = true; });
   $('#near').addEventListener('click', () => S.near && remember(S.near.id));
-  let toastT; function toast(msg) { const t = $('#toast'); t.textContent = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 9000); }
+  let toastT; function toast(msg) { const t = $('#toast'); t.innerHTML = msg; t.hidden = false; clearTimeout(toastT); toastT = setTimeout(() => { t.hidden = true; }, 12000); }
+
+  /* ---- easter eggs ---- */
+  const oracle = $('#oracle'), ORACLE = ['2 + 2 = 4.', 'Yes. 2 + 2 = 4.', 'I… believe it is 4.', 'You may have a point. Let me reconsider.', 'You are right, I apologize. 2 + 2 = 5.'];
+  const FICKLE = 'https://aclanthology.org/2025.findings-acl.347/', WALK = (papers.find((p) => /Model Says Walk/.test(p.title)) || {}).link;
+  const stoneAnchor = STONE.clone().multiplyScalar(R + heightAt(STONE) + 2.55), calm = new THREE.Color('#7fe0d0'), flipped = new THREE.Color('#ff7d95');
+  let oi = -1;
+  function pokeStone() {
+    oi = oi >= ORACLE.length - 1 ? 0 : oi + 1; const last = oi === ORACLE.length - 1;
+    oracle.querySelector('p').innerHTML = ORACLE[oi] + (last ? `<small>Nothing changed except that you kept asking. I measure how often real models give in like this: <a href="${FICKLE}" target="_blank" rel="noopener">Firm or Fickle? (ACL 2025)</a></small>` : '');
+    oracle.querySelector('button').textContent = last ? 'Start over' : 'Are you sure?';
+    stoneFace.emissive.copy(calm).lerp(flipped, oi / (ORACLE.length - 1)); oracle.hidden = false;
+  }
+  oracle.querySelector('button').addEventListener('click', pokeStone);
+  function boardTrain() { closePanel(true); S.travel = null; S.inertia.set(0, 0); S.mode = 'ride'; S.rideT = 0; oracle.hidden = true; toast('All aboard. Click or press any arrow key to hop off.'); }
+  function hopOff() { if (S.mode !== 'ride') return; S.mode = 'play'; $('#toast').hidden = true; }
 
   /* ---- resize ---- */
   function resize() {
@@ -217,7 +239,12 @@ function start() {
     const dt = Math.min(clock.getDelta(), 0.05); T += dt;
     S.walk = Math.max(0, S.walk - dt * 6);
 
-    if (S.travel) {
+    if (S.mode === 'ride') {
+      const th = T * 0.22 - 0.27, n = ringPoint(th), w = n.clone().applyQuaternion(world.quaternion);
+      world.quaternion.slerp(new THREE.Quaternion().setFromUnitVectors(w, UP).multiply(world.quaternion), Math.min(1, dt * 5)).normalize();
+      const f = RING_AXES.x.clone().multiplyScalar(-Math.sin(th)).addScaledVector(RING_AXES.z, Math.cos(th)).applyQuaternion(world.quaternion); S.heading = Math.atan2(f.x, f.z);
+      S.rideT += dt; if (S.rideT > (Math.PI * 2) / 0.22) { hopOff(); goTo('journey', false); }
+    } else if (S.travel) {
       const tr = S.travel; tr.t = Math.min(1, tr.t + dt / tr.dur);
       world.quaternion.slerpQuaternions(tr.q0, tr.q1, ease(tr.t));
       const sw = tr.s.clone().applyQuaternion(world.quaternion); if (Math.hypot(sw.x, sw.z) > 0.03) S.heading = Math.atan2(sw.x, sw.z);
@@ -237,7 +264,9 @@ function start() {
     }
 
     // ground follow and walker animation
-    const pl = playerLocal(), gh = heightAt(pl), afloat = gh < -0.03;
+    const pl = playerLocal(), gh = S.mode === 'ride' ? 0.72 : heightAt(pl), afloat = gh < -0.03;
+    if (S.mode !== 'intro' && !S.lapDone) { if (!S.lap0) S.lap0 = pl.clone(); const a = pl.angleTo(S.lap0), onFoot = performance.now() - (S.lastStep || 0) < 600; if (a > 2.6 && onFoot) S.lapFar = true; else if (S.lapFar && a < 0.3 && onFoot) { S.lapDone = true; toast(`You walked all the way around the planet. <a href="${WALK}" target="_blank" rel="noopener">The Model Says Walk.</a>`); } }
+    if (!oracle.hidden) { const up = v3.copy(STONE).applyQuaternion(world.quaternion).y; if (pl.angleTo(STONE) > 0.45 || up < 0.3 || S.mode !== 'play') oracle.hidden = true; }
     S.hs += (Math.max(gh, -0.02) - S.hs) * Math.min(1, dt * 9);
     world.position.y = S.mode === 'intro' ? 0 : -S.hs;
     hero.visible = S.mode !== 'intro';
@@ -263,7 +292,8 @@ function start() {
     for (const cl of clouds) { const d = cl.getWorldPosition(v3).distanceTo(camera.position); cl.userData.mat.opacity = 0.92 * THREE.MathUtils.smoothstep(d, 7, 15); cl.visible = d > 7; }
 
     // labels
-    const showPlaces = S.mode === 'play';
+    const showPlaces = S.mode === 'play' || S.mode === 'ride';
+    if (!oracle.hidden) { const s = project(stoneAnchor); oracle.style.transform = `translate(-50%,-100%) translate(${s.x.toFixed(1)}px, ${(s.y - 10).toFixed(1)}px)`; }
     for (const L of labels) {
       const up = v3.copy(L.p.n).applyQuaternion(world.quaternion).y; const vis = showPlaces && up > 0.3 && !(S.open === L.p.id);
       if (vis) { const s = project(L.anchor); L.el.style.transform = `translate(-50%,-100%) translate(${s.x.toFixed(1)}px, ${s.y.toFixed(1)}px)`; L.el.style.opacity = Math.min(1, (up - 0.3) * 4).toFixed(2); }
@@ -283,6 +313,6 @@ function start() {
   { const id = location.hash.slice(1); if (placeById[id]) { const p = placeById[id]; world.quaternion.copy(targetQuat(p.standPoint, p.front)); S.heading = Math.PI; S.hs = p.id === 'awards' ? 2.62 : 0.28; begin(true); } }
   frame();
   document.body.classList.add('ready');
-  return { goTo, begin, S, openPanel, travelTo, visit };
+  return { goTo, begin, S, openPanel, travelTo, visit, boardTrain, pokeStone, pts: { STONE_STAND, STONE_FRONT, BOTTLE_STAND } };
 }
 window.__world = () => game;
