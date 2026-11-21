@@ -31,8 +31,8 @@ const fbm = (p, s) => vnoise(p.x * s, p.y * s, p.z * s) * 0.6 + vnoise(p.x * s *
 /* ---------- places ---------- */
 const tangentAway = (n, from) => { const t = n.clone().sub(from); t.addScaledVector(n, -t.dot(n)); return t.normalize(); };
 const south = (n) => tangentAway(n, V(0, 1, 0));
-const RING_AXES = (() => { const x = tangentAway(RING_C, V(0, 1, 0)); return { x, z: RING_C.clone().cross(x) }; })();
-const ringPoint = (theta, a = RING_A) => RING_C.clone().multiplyScalar(Math.cos(a * D2R))
+export const RING_AXES = (() => { const x = tangentAway(RING_C, V(0, 1, 0)); return { x, z: x.clone().cross(RING_C) }; })();
+export const ringPoint = (theta, a = RING_A) => RING_C.clone().multiplyScalar(Math.cos(a * D2R))
   .addScaledVector(RING_AXES.x, Math.sin(a * D2R) * Math.cos(theta)).addScaledVector(RING_AXES.z, Math.sin(a * D2R) * Math.sin(theta)).normalize();
 
 const P = (id, n, flat, stand, labelH, front) => ({ id, n, flat, stand, labelH, front: front || south(n), plateau: 0.28 });
@@ -40,7 +40,7 @@ export const PLACES = [
   P('home', dirOf(20, 55), 6.5, 2.1, 2.4),
   P('awards', PEAK, 2.6, 0.75, 1.5),
   P('teaching', dirOf(-18, 18), 6.5, 2.3, 2.2),
-  P('journey', ringPoint(0, RING_A + 2.2), 5.5, 1.5, 2.2, tangentAway(ringPoint(0, RING_A + 2.2), RING_C)),
+  P('journey', ringPoint(0, RING_A + 5.5), 5.5, 1.5, 2.2, tangentAway(ringPoint(0, RING_A + 5.5), RING_C)),
   P('blog', dirOf(55, 122), 6.5, 2.0, 3.6),
   P('life', dirOf(-38, 148), 7, 2.4, 2.3),
   P('research', dirOf(22, 186), 6.5, 2.4, 2.7),
@@ -51,6 +51,11 @@ PLACES.forEach((p) => {
   p.standPoint = p.n.clone().multiplyScalar(Math.cos(p.stand / R)).addScaledVector(p.front, Math.sin(p.stand / R)).normalize();
 });
 export const placeById = Object.fromEntries(PLACES.map((p) => [p.id, p]));
+
+export const STONE = dirOf(5, 75), BOTTLE = dirOf(-4, 303);
+export const STONE_FRONT = south(STONE);
+export const STONE_STAND = STONE.clone().multiplyScalar(Math.cos(0.19)).addScaledVector(STONE_FRONT, Math.sin(0.19)).normalize();
+export const BOTTLE_STAND = BOTTLE.clone().multiplyScalar(Math.cos(0.12)).addScaledVector(south(BOTTLE), Math.sin(0.12)).normalize();
 
 export function heightAt(n) {
   let h = 0.56 + (fbm(n, 2.3) - 0.5) * 1.5;
@@ -335,7 +340,7 @@ export function buildWorld() {
     };
   })();
   const spots = { pine: [], round: [], rock: [] };
-  const clear = (n, pad) => PLACES.every((p) => angDeg(n, p.n) > p.flat * 1.05 + pad && angDeg(n, p.standPoint) > 12.5) && Math.abs(angDeg(n, RING_C) - RING_A) > 2.6;
+  const clear = (n, pad) => PLACES.every((p) => angDeg(n, p.n) > p.flat * 1.05 + pad && angDeg(n, p.standPoint) > 12.5) && Math.abs(angDeg(n, RING_C) - RING_A) > 2.6 && angDeg(n, STONE) > 6 && angDeg(n, STONE_STAND) > 9;
   for (let i = 0; i < 5200 && spots.pine.length + spots.round.length < 260; i++) {
     const n = V(rnd() * 2 - 1, rnd() * 2 - 1, rnd() * 2 - 1); if (n.lengthSq() > 1 || n.lengthSq() < 0.01) continue; n.normalize();
     const h = heightAt(n), f = fbm(n, 3.1);
@@ -382,7 +387,7 @@ export function buildWorld() {
     G(box(0.32, 0.26, 0.6, mat('#e2b55a'), 0, 0.2, 0), box(0.24, 0.08, 0.5, mat('#3a3550'), 0, 0.36, 0)),
     G(box(0.32, 0.3, 0.6, mat(C.teal), 0, 0.22, 0), box(0.34, 0.04, 0.62, mat('#3a3550'), 0, 0.39, 0), box(0.02, 0.1, 0.36, glow(C.lamp, 2), 0.165, 0.26, 0), box(0.02, 0.1, 0.36, glow(C.lamp, 2), -0.165, 0.26, 0)),
   ];
-  cars.forEach((cg, i) => { cg.matrixAutoUpdate = false; rail.add(cg); cg.add(box(0.36, 0.08, 0.5, mat('#2a2640'), 0, 0.05, 0)); });
+  cars.forEach((cg, i) => { cg.matrixAutoUpdate = false; rail.add(cg); cg.add(box(0.36, 0.08, 0.5, mat('#2a2640'), 0, 0.05, 0)); const th = ball(0.5, 0, new THREE.MeshBasicMaterial({ visible: false }), 0, 0.3, 0); th.userData.egg = 'train'; cg.add(th); pick.push(th); });
   const puffs = [0, 1, 2].map(() => ball(0.1, 0, mat('#e6e2f0', { transparent: true, opacity: 0.6 })));
   puffs.forEach((p) => rail.add(p));
   anim.push((t) => {
@@ -403,6 +408,28 @@ export function buildWorld() {
     const fwd = rx.clone().multiplyScalar(-Math.sin(th)).addScaledVector(rz, Math.cos(th));
     rhino.matrix.copy(basis(n, fwd)).scale(V(0.85, 0.85, 0.85)); rhino.matrixWorldNeedsUpdate = true;
   });
+
+  // the stone that can be talked out of the truth
+  const stoneFace = new THREE.MeshStandardMaterial({ color: '#10141f', emissive: '#7fe0d0', emissiveIntensity: 2.4 });
+  {
+    const g = G(cyl(0.2, 0.34, 1.3, 5, mat(C.stoneDark), 0, 0.65, 0, 0, 0.3, 0), cyl(0.1, 0.2, 0.3, 5, mat(C.stone), 0, 1.42, 0, 0, 0.3, 0),
+      mesh(new THREE.CircleGeometry(0.13, 16), stoneFace, 0, 0.98, 0.262, -0.1, 0, 0), mesh(new THREE.RingGeometry(0.17, 0.19, 24), stoneFace, 0, 0.98, 0.26, -0.1, 0, 0),
+      ball(0.16, 0, mat(C.stone), 0.42, 0.06, 0.12), ball(0.11, 0, mat(C.stoneDark), -0.4, 0.04, 0.2));
+    const hit = ball(0.85, 0, new THREE.MeshBasicMaterial({ visible: false }), 0, 0.8, 0); hit.userData.egg = 'stone'; g.add(hit); pick.push(hit);
+    g.add(light('#7fe0d0', 3, 4, 0, 1.0, 0.8)); placeOn(g, STONE, STONE_FRONT); g.matrix.scale(V(1.55, 1.55, 1.55)); world.add(g);
+  }
+
+  // a message in a bottle, far out at sea
+  {
+    const glass = new THREE.MeshStandardMaterial({ color: '#9fe8dc', transparent: true, opacity: 0.55, roughness: 0.15, emissive: '#7fe0d0', emissiveIntensity: 0.5 });
+    const b = G(cyl(0.085, 0.085, 0.26, 8, glass, 0, 0, 0), cyl(0.035, 0.085, 0.1, 8, glass, 0, 0.18, 0), cyl(0.035, 0.035, 0.07, 8, glass, 0, 0.26, 0), cyl(0.04, 0.035, 0.05, 6, mat(C.wood), 0, 0.31, 0),
+      cyl(0.04, 0.04, 0.2, 6, mat(C.white, { emissive: '#fff', emissiveIntensity: 0.9 }), 0, 0, 0));
+    const holder = new THREE.Group(); holder.add(b); b.scale.setScalar(2.3); holder.add(light('#aef5e6', 2.5, 3.5, 0, 0.6, 0));
+    const hit = ball(0.75, 0, new THREE.MeshBasicMaterial({ visible: false })); hit.userData.egg = 'bottle'; holder.add(hit); pick.push(hit);
+    const z = south(BOTTLE), x = BOTTLE.clone().cross(z);
+    holder.matrixAutoUpdate = false; holder.matrix.makeBasis(x, BOTTLE, z).setPosition(BOTTLE.clone().multiplyScalar(R + 0.04)); world.add(holder);
+    anim.push((t) => { b.position.y = Math.sin(t * 1.6) * 0.035; b.rotation.set(1.05 + Math.sin(t * 1.1) * 0.12, t * 0.25, Math.sin(t * 0.9) * 0.15); });
+  }
 
   // clouds
   const clouds = [];
@@ -487,5 +514,5 @@ export function buildWorld() {
   }
   anim.push((t) => stars.forEach((s2, i) => { const b = s2.userData.base * (s2.userData.hot ? 1.7 : 1); s2.scale.setScalar(b * (0.92 + 0.08 * Math.sin(t * 2 + i * 1.3))); }));
 
-  return { world, anim, pick, clouds, stars, constellations, skyCenter: skyC.clone().multiplyScalar(SKY_R), terrain };
+  return { world, anim, pick, clouds, stoneFace, stars, constellations, skyCenter: skyC.clone().multiplyScalar(SKY_R), terrain };
 }
