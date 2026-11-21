@@ -20,7 +20,7 @@ export const THEMES = {
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
 export const SITE = __SITE__;
-export const CLASSIC = { home: '/about/', research: '/publications/', news: '/news/', journey: '/cv/', awards: '/about/', teaching: '/teaching/', blog: '/blog/', life: '/life/', contact: '/contact/' };
+export const CLASSIC = { home: '/about/', research: '/publications/', news: '/news/', journey: '/cv/', awards: '/about/#awards', teaching: '/teaching/', blog: '/blog/', life: '/life/', contact: '/contact/' };
 
 export const news = [
   ['2026-11-09', 'Invited to serve as a reviewer for <a href="https://jmlr.org/tmlr/">Transactions on Machine Learning Research</a>.'],
