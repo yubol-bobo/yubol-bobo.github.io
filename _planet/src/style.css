@@ -38,6 +38,7 @@ body.intro #topnav{opacity:0;pointer-events:none}
 #intro.gone{opacity:0;pointer-events:none}
 #intro>div{max-width:560px}
 #intro h1{font:600 clamp(64px,11vw,148px)/.86 var(--display);letter-spacing:-.035em;margin:0 0 .22em;font-style:italic}
+#intro .thesis{font:600 clamp(25px,2.5vw,36px)/1.18 var(--display);letter-spacing:-.012em;color:#fff;margin:0 0 .55em;max-width:17em}
 #intro .sub{font:400 clamp(18px,1.6vw,22px)/1.45 var(--display);color:#f0f2ff;margin:0 0 1.6em;max-width:30em}
 .go,.actions{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 1.1em}
 .btn{display:inline-block;background:var(--lamp);color:#1b1730;border-color:transparent;font-weight:600;font-size:15px;padding:12px 22px;text-decoration:none}
