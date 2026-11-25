@@ -5,10 +5,18 @@ import { UnrealBloomPass } from 'three/addons/postprocessing/UnrealBloomPass.js'
 import { OutputPass } from 'three/addons/postprocessing/OutputPass.js';
 import { R, PLACES, placeById, heightAt, buildWorld, buildCharacter, ringPoint, RING_AXES, STONE, STONE_FRONT, STONE_STAND, BOTTLE_STAND } from './world.js';
 import { PANELS, papers, venueOf, drawCityMap, SITE, CLASSIC } from './content.js';
+import { makeArrival } from './arrival.js';
 
 const $ = (s) => document.querySelector(s);
 const UP = new THREE.Vector3(0, 1, 0);
 const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+// the arrival plays once per browser session, never for reduced motion or a link straight to a place
+const arriving = (() => {
+  if (reduced || placeById[location.hash.slice(1)]) return false;
+  try { if (sessionStorage.getItem('planet-arrived')) return false; sessionStorage.setItem('planet-arrived', '1'); } catch (e) { /* storage blocked: just play it */ }
+  return true;
+})();
+if (arriving) { document.body.classList.add('arrive'); setTimeout(() => document.body.classList.add('live'), 4000); }
 const NAV = ['home', 'research', 'news', 'journey', 'awards', 'teaching', 'blog', 'life', 'contact'];
 
 /* ---------- reader view and static UI: works even without WebGL ---------- */
@@ -31,7 +39,7 @@ function wireFilters(root) {
 let game = null;
 try { document.fonts.load('600 20px Fraunces'); document.fonts.load('400 20px "Instrument Sans"'); } catch (e) { /* older browsers */ }
 (document.fonts ? document.fonts.ready : Promise.resolve()).then(() => {
-  try { game = start(); } catch (err) { console.error(err); document.body.classList.add('nogl'); $('#intro-note').textContent = 'This browser could not start the 3D planet. The classic site has everything.'; $('#begin').hidden = true; }
+  try { game = start(); } catch (err) { console.error(err); document.body.classList.add('nogl', 'live'); $('#intro-note').textContent = 'This browser could not start the 3D planet. The classic site has everything.'; $('#begin').hidden = true; }
 });
 
 function start() {
@@ -43,7 +51,7 @@ function start() {
   const camera = new THREE.PerspectiveCamera(42, 1, 0.1, 1200);
   scene.add(new THREE.HemisphereLight('#aab6ff', '#3a2f55', 0.55));
 
-  const { world, anim, pick, clouds, stoneFace, stars, constellations, skyCenter } = buildWorld();
+  const { world, anim, pick, clouds, stoneFace, stars, constellations, forest, skyCenter } = buildWorld();
   scene.add(world);
   const hero = buildCharacter(); hero.position.y = R; hero.scale.setScalar(1.2); scene.add(hero);
   const heroLight = new THREE.PointLight('#ffe2b8', 2.2, 5, 1.5); heroLight.position.set(0, R + 1.6, 1.2); scene.add(heroLight);
@@ -52,6 +60,10 @@ function start() {
   composer.addPass(new RenderPass(scene, camera));
   const bloom = new UnrealBloomPass(new THREE.Vector2(1, 1), 0.5, 0.7, 0.9); composer.addPass(bloom);
   composer.addPass(new OutputPass());
+  const arrival = makeArrival({ scene, camera, renderer, world, PLACES, home: placeById.home, forest, stars, constellations }, arriving);
+  // any click, key, scroll or touch during the arrival skips to the end of it
+  const skip = () => { if (!arrival.A.playing) return; arrival.finish(); document.body.classList.add('arrived'); };
+  ['pointerdown', 'keydown', 'wheel', 'touchstart'].forEach((ev) => addEventListener(ev, skip, { capture: true, passive: true }));
 
   /* ---- state ---- */
   const S = {
@@ -198,7 +210,7 @@ function start() {
 
   /* ---- intro ---- */
   function begin(fast) {
-    if (S.mode !== 'intro') return; S.mode = 'play'; document.body.classList.remove('intro'); $('#intro').classList.add('gone');
+    if (S.mode !== 'intro') return; arrival.finish(); S.mode = 'play'; document.body.classList.remove('intro'); $('#intro').classList.add('gone');
     setTimeout(() => { $('#intro').hidden = true; }, 900);
     if (reduced || fast) { S.camPos.copy(CAM.play.pos); S.camLook.copy(CAM.play.look); }
     canvas.focus({ preventScroll: true });
@@ -277,19 +289,20 @@ function start() {
     row.position.y = Math.sin(T * 2) * 0.02; legL.visible = legR.visible = !afloat;
 
     anim.forEach((f) => f(T, dt));
+    arrival.update(dt, T);
     world.updateMatrixWorld(true);
 
     // camera
     const c = CAM[S.mode];
     if (S.mode === 'sky') c.look.copy(skyCenter).applyMatrix4(world.matrixWorld);
     const k = reduced ? 1 : Math.min(1, dt * (S.mode === 'play' ? 1.9 : 2.4));
-    S.camPos.lerp(c.pos, k); S.camLook.lerp(c.look, k); S.fov += (c.fov - S.fov) * k;
+    if (!(S.mode === 'intro' && arrival.camera(S, c))) { S.camPos.lerp(c.pos, k); S.camLook.lerp(c.look, k); S.fov += (c.fov - S.fov) * k; }
     camera.position.copy(S.camPos); camera.lookAt(S.camLook); camera.fov = S.fov;
     const wide = innerWidth > 900, target = S.open && wide ? 1 : 0; S.shift += (target - S.shift) * (reduced ? 1 : Math.min(1, dt * 5));
     if (S.shift > 0.002) camera.setViewOffset(innerWidth, innerHeight, S.shift * Math.min(520, innerWidth * 0.4) * 0.5, 0, innerWidth, innerHeight); else camera.clearViewOffset();
     camera.updateProjectionMatrix();
 
-    for (const cl of clouds) { const d = cl.getWorldPosition(v3).distanceTo(camera.position); cl.userData.mat.opacity = 0.92 * THREE.MathUtils.smoothstep(d, 7, 15); cl.visible = d > 7; }
+    for (const cl of clouds) { const d = cl.getWorldPosition(v3).distanceTo(camera.position); cl.userData.mat.opacity = 0.92 * THREE.MathUtils.smoothstep(d, 7, 15) * arrival.cloud(); cl.visible = d > 7; }
 
     // labels
     const showPlaces = S.mode === 'play' || S.mode === 'ride';

@@ -349,6 +349,7 @@ export function buildWorld() {
   }
   const tints = { pine: ['#3f7d5f', '#4c8c62', '#35705c', '#5a9668'], round: ['#7fae62', '#93b76a', '#6aa069', '#e9a46b', '#d98a7a'], rock: ['#9a94ad', '#807a98', '#b3aec4'] };
   const tmp = new THREE.Matrix4(), q = new THREE.Quaternion(), s = V();
+  const forest = [];
   for (const k of Object.keys(spots)) {
     const im = new THREE.InstancedMesh(pine[k], new THREE.MeshStandardMaterial({ vertexColors: true, flatShading: true, roughness: 0.9 }), spots[k].length);
     spots[k].forEach((n, i) => {
@@ -357,6 +358,7 @@ export function buildWorld() {
       tmp.compose(n.clone().multiplyScalar(R + heightAt(n) - 0.03), q, s.set(sc, sc * (0.85 + rnd() * 0.4), sc));
       im.setMatrixAt(i, tmp); im.setColorAt(i, cc.set(tints[k][Math.floor(rnd() * tints[k].length)]));
     });
+    forest.push({ im, spots: spots[k], base: spots[k].map((_, i) => { const m4 = new THREE.Matrix4(); im.getMatrixAt(i, m4); return m4; }) });
     world.add(im);
   }
 
@@ -514,5 +516,5 @@ export function buildWorld() {
   }
   anim.push((t) => stars.forEach((s2, i) => { const b = s2.userData.base * (s2.userData.hot ? 1.7 : 1); s2.scale.setScalar(b * (0.92 + 0.08 * Math.sin(t * 2 + i * 1.3))); }));
 
-  return { world, anim, pick, clouds, stoneFace, stars, constellations, skyCenter: skyC.clone().multiplyScalar(SKY_R), terrain };
+  return { world, anim, pick, clouds, stoneFace, stars, constellations, forest, skyCenter: skyC.clone().multiplyScalar(SKY_R), terrain };
 }
